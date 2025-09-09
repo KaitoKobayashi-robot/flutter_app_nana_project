@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +5,23 @@ import 'package:go_router/go_router.dart';
 import 'package:signature/signature.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
-import 'dart:io';
-import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'DownloadURL.dart';
 import 'UserImage.dart';
+
+final imageInfoProvider = Provider.autoDispose<Map<String, double>>((ref) {
+  final imageData = ref.watch(userImageProvider);
+  if (imageData == null) {
+    return {'width': 0.0, 'height': 0.0};
+  }
+  final image = img.decodeImage(imageData);
+  if (image != null) {
+    return {'width': image.width.toDouble(), 'height': image.height.toDouble()};
+  } else {
+    return {'width': 0.0, 'height': 0.0};
+  }
+});
 
 class PageWrite extends ConsumerStatefulWidget {
   const PageWrite({super.key});
@@ -24,12 +34,8 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   final storageRef = FirebaseStorage.instance.ref();
   late final SignatureController _controller;
   final GlobalKey _completeImgKey = GlobalKey();
-  bool _hasSigned = false;
-  Uint8List? get imageData => ref.watch(userImageProvider);
+  final ValueNotifier<bool> _hasSignedNotifire = ValueNotifier<bool>(false);
   static const imagescale = 1.2;
-  double imageWidth = 0.0;
-  double imageHeight = 0.0;
-
   @override
   void initState() {
     super.initState();
@@ -38,21 +44,17 @@ class _PageWriteState extends ConsumerState<PageWrite> {
       penColor: CupertinoColors.black,
       exportBackgroundColor: CupertinoColors.white,
     );
-    _controller.onDrawEnd = () {
-      setState(() {
-        _hasSigned = _controller.isNotEmpty;
-      });
-    };
-    if (imageData != null) {
-      img.Image decodedImage = img.decodeImage(imageData!)!;
-      imageWidth = decodedImage.width.toDouble() / imagescale;
-      imageHeight = decodedImage.height.toDouble() / imagescale;
-    }
+    _controller.addListener(() {
+      if (_hasSignedNotifire.value != _controller.isNotEmpty) {
+        _hasSignedNotifire.value = _controller.isNotEmpty;
+      }
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _hasSignedNotifire.dispose();
     super.dispose();
   }
 
@@ -64,10 +66,6 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     if (byteData != null) {
       final pngBytes = byteData.buffer.asUint8List();
-      final tempDir = Directory.systemTemp;
-      final file = await File('${tempDir.path}/signed_image_.png').create();
-      await file.writeAsBytes(pngBytes);
-      await GallerySaver.saveImage(file.path);
       try {
         String filename =
             'user_images/image${DateTime.now().microsecondsSinceEpoch}.png';
@@ -83,9 +81,14 @@ class _PageWriteState extends ConsumerState<PageWrite> {
 
   void _handleClear() {
     _controller.clear();
-    setState(() {
-      _hasSigned = false;
-    });
+  }
+
+  void _handleUndo() {
+    _controller.undo();
+  }
+
+  void _handleRedo() {
+    _controller.redo();
   }
 
   push(BuildContext context) {
@@ -95,49 +98,51 @@ class _PageWriteState extends ConsumerState<PageWrite> {
 
   @override
   Widget build(BuildContext context) {
+    final imageData = ref.watch(userImageProvider);
+    final imageInfo = ref.watch(imageInfoProvider);
+
+    if (imageData == null) {
+      return CupertinoPageScaffold(
+        backgroundColor: Color.fromARGB(255, 249, 249, 146),
+        child: Center(child: const Text('NO IMAGE')),
+      );
+    }
+
+    final imageWidth = imageInfo['width']! / imagescale;
+    final imageHeight = imageInfo['height']! / imagescale;
+
+    ValueListenableBuilder<bool> buttonBuilder = ValueListenableBuilder(
+      valueListenable: _hasSignedNotifire,
+      builder: (context, hasSigned, child) {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CupertinoButton(
+                  onPressed: hasSigned ? _handleClear : null,
+                  child: const Text('クリア'),
+                ),
+                const SizedBox(width: 20),
+                CupertinoButton(
+                  onPressed: hasSigned ? _handleUndo : null,
+                  child: const Text('元に戻す'),
+                ),
+                const SizedBox(width: 20),
+                CupertinoButton(
+                  onPressed: hasSigned ? _handleRedo : null,
+                  child: const Text('やり直す'),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+
     final pushButton = CupertinoButton(
       onPressed: () => push(context),
       child: const Text('完成'),
-    );
-
-    final clearButton = CupertinoButton(
-      onPressed: _hasSigned ? _handleClear : null,
-      child: const Text('クリア'),
-    );
-
-    final undoButton = CupertinoButton(
-      onPressed: _hasSigned
-          ? () {
-              _controller.undo();
-              setState(() {
-                _hasSigned = _controller.isNotEmpty;
-              });
-            }
-          : null,
-      child: const Text('元に戻す'),
-    );
-
-    final redoButton = CupertinoButton(
-      onPressed: _hasSigned
-          ? () {
-              _controller.redo();
-              setState(() {
-                _hasSigned = _controller.isNotEmpty;
-              });
-            }
-          : null,
-      child: const Text('やり直す'),
-    );
-
-    final buttonRow = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        clearButton,
-        const SizedBox(width: 20),
-        undoButton,
-        const SizedBox(width: 20),
-        redoButton,
-      ],
     );
 
     const signatureWidth = 450.0;
@@ -156,7 +161,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
 
     final image = Image.memory(
       scale: imagescale,
-      imageData!,
+      imageData,
       fit: BoxFit.contain,
     );
 
@@ -187,7 +192,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
                 ),
               ),
             ),
-            buttonRow,
+            buttonBuilder,
             pushButton,
           ],
         ),

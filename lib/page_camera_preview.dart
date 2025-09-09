@@ -4,20 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'UserImage.dart';
 
-class PageCameraPreview extends ConsumerStatefulWidget {
+class PageCameraPreview extends ConsumerWidget {
   const PageCameraPreview({super.key});
-
-  @override
-  ConsumerState<PageCameraPreview> createState() => _PageCameraPreviewState();
-}
-
-class _PageCameraPreviewState extends ConsumerState<PageCameraPreview> {
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   push(BuildContext context) {
     context.push('/write');
@@ -28,8 +16,8 @@ class _PageCameraPreviewState extends ConsumerState<PageCameraPreview> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final imageData = ref.read(userImageProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final imageData = ref.watch(userImageProvider);
     final backButtonChild = Container(
       margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
       width: 230,
@@ -158,9 +146,7 @@ class _PageCameraPreviewState extends ConsumerState<PageCameraPreview> {
     return CupertinoPageScaffold(
       backgroundColor: Color.fromARGB(255, 249, 249, 146),
       child: Center(
-        child: isLoading
-            ? const CupertinoActivityIndicator(radius: 40)
-            : imageData == null
+        child: imageData == null
             ? const Text('NO IMAGE')
             : Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
