@@ -11,10 +11,10 @@ import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'DownloadURL.dart';
+import 'UserImage.dart';
 
 class PageWrite extends ConsumerStatefulWidget {
-  final Uint8List imageData;
-  const PageWrite({super.key, required this.imageData});
+  const PageWrite({super.key});
 
   @override
   ConsumerState<PageWrite> createState() => _PageWriteState();
@@ -25,7 +25,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   late final SignatureController _controller;
   final GlobalKey _completeImgKey = GlobalKey();
   bool _hasSigned = false;
-  Uint8List? get imageData => widget.imageData;
+  Uint8List? get imageData => ref.watch(userImageProvider);
   static const imagescale = 1.2;
   double imageWidth = 0.0;
   double imageHeight = 0.0;
@@ -43,7 +43,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
         _hasSigned = _controller.isNotEmpty;
       });
     };
-    if (widget.imageData.isNotEmpty) {
+    if (imageData != null) {
       img.Image decodedImage = img.decodeImage(imageData!)!;
       imageWidth = decodedImage.width.toDouble() / imagescale;
       imageHeight = decodedImage.height.toDouble() / imagescale;

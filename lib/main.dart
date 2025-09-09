@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,25 +32,13 @@ class Home extends ConsumerWidget {
       ),
       GoRoute(
         path: '/camera_preview',
-        builder: (context, state) {
-          final imagePath = state.extra as String?;
-          if (imagePath == null) {
-            return const PageCameraPreview(imagePath: '');
-          }
-          return PageCameraPreview(imagePath: imagePath);
-        },
+        builder: (context, state) => const PageCameraPreview(),
       ),
       GoRoute(
         path: '/percent_indicator',
         builder: (context, state) => const PagePercentIndicator(),
       ),
-      GoRoute(
-        path: '/write',
-        builder: (context, state) {
-          final imageData = state.extra as Uint8List;
-          return PageWrite(imageData: imageData);
-        },
-      ),
+      GoRoute(path: '/write', builder: (context, state) => PageWrite()),
       GoRoute(path: '/QR', builder: (context, state) => const PageQR()),
     ],
   );

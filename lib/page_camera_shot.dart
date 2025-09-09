@@ -3,6 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
 import 'CameraProviders.dart';
 import 'page_camera_preview.dart';
+import 'dart:async';
+import 'UserImage.dart';
+import 'package:image/image.dart' as img;
+import 'dart:typed_data';
 
 class PageCameraShot extends ConsumerStatefulWidget {
   const PageCameraShot({super.key});
@@ -13,7 +17,6 @@ class PageCameraShot extends ConsumerStatefulWidget {
 
 class _PageCameraShotState extends ConsumerState<PageCameraShot> {
   bool _timerStarted = false;
-
   @override
   void initState() {
     super.initState();
@@ -28,12 +31,16 @@ class _PageCameraShotState extends ConsumerState<PageCameraShot> {
         throw Exception('Camera is not initialized');
       }
       final XFile image = await controller.takePicture();
+      final imageData = await image.readAsBytes();
+      final flippedImage = img.flipHorizontal(img.decodeImage(imageData)!);
+      final flippedImageData = Uint8List.fromList(img.encodeJpg(flippedImage));
+      ref.read(userImageProvider.notifier).state = flippedImageData;
+
       if (!context.mounted) return;
-      await Navigator.of(context).push(
-        CupertinoPageRoute(
-          builder: (context) => PageCameraPreview(imagePath: image.path),
-        ),
-      );
+
+      await Navigator.of(
+        context,
+      ).push(CupertinoPageRoute(builder: (context) => PageCameraPreview()));
       if (context.mounted) {
         ref.invalidate(cameraControllerProvider);
         ref.read(countdownProvider.notifier).resetTimer();

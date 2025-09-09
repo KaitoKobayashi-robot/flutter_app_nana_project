@@ -1,64 +1,35 @@
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:image/image.dart' as img;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'UserImage.dart';
 
-class PageCameraPreview extends StatefulWidget {
-  final String imagePath;
-
-  const PageCameraPreview({super.key, required this.imagePath});
+class PageCameraPreview extends ConsumerStatefulWidget {
+  const PageCameraPreview({super.key});
 
   @override
-  State<PageCameraPreview> createState() => _PageCameraPreviewState();
+  ConsumerState<PageCameraPreview> createState() => _PageCameraPreviewState();
 }
 
-class _PageCameraPreviewState extends State<PageCameraPreview> {
-  Uint8List? imageData;
+class _PageCameraPreviewState extends ConsumerState<PageCameraPreview> {
   bool isLoading = true;
-  bool isSaved = false;
-  File? flippedImageFile;
 
   @override
   void initState() {
     super.initState();
-    initializeAndFlipImage();
   }
 
-  push(BuildContext context, Uint8List imageData) {
-    context.push('/write', extra: imageData);
+  push(BuildContext context) {
+    context.push('/write');
   }
 
   back(BuildContext context) {
     context.push('/camera');
   }
 
-  Future<void> initializeAndFlipImage() async {
-    final file = File(widget.imagePath);
-    final bytes = await file.readAsBytes();
-    img.Image? originalImage = img.decodeImage(bytes);
-
-    if (originalImage == null) {
-      setState(() {
-        isLoading = false;
-      });
-      throw Exception('画像のデコードに失敗しました');
-    }
-
-    // 画像を左右反転
-    img.Image flippedImage = img.flipHorizontal(originalImage);
-    final flippedBytes = Uint8List.fromList(img.encodeJpg(flippedImage));
-    if (!mounted) return;
-    setState(() {
-      imageData = flippedBytes;
-      isLoading = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final imageData = ref.read(userImageProvider);
     final backButtonChild = Container(
       margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
       width: 230,
@@ -167,8 +138,7 @@ class _PageCameraPreviewState extends State<PageCameraPreview> {
 
     final pushButton = CupertinoButton(
       onPressed: () {
-        isSaved = false;
-        push(context, imageData!);
+        push(context);
       },
       child: pushButtonChild,
     );
@@ -182,7 +152,7 @@ class _PageCameraPreviewState extends State<PageCameraPreview> {
         ? const Text('NO IMAGE')
         : Transform.scale(
             scale: 0.7,
-            child: Image.memory(imageData!, fit: BoxFit.contain),
+            child: Image.memory(imageData, fit: BoxFit.contain),
           );
 
     return CupertinoPageScaffold(
