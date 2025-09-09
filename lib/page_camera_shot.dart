@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
 import 'CameraProviders.dart';
-import 'page_camera_preview.dart';
 import 'dart:async';
 import 'UserImage.dart';
 import 'package:image/image.dart' as img;
@@ -37,14 +37,7 @@ class _PageCameraShotState extends ConsumerState<PageCameraShot> {
       ref.read(userImageProvider.notifier).state = flippedImageData;
 
       if (!context.mounted) return;
-
-      await Navigator.of(
-        context,
-      ).push(CupertinoPageRoute(builder: (context) => PageCameraPreview()));
-      if (context.mounted) {
-        ref.invalidate(cameraControllerProvider);
-        ref.read(countdownProvider.notifier).resetTimer();
-      }
+      context.push('/camera_preview');
     } catch (e) {
       if (!mounted) return;
       if (!context.mounted) return;

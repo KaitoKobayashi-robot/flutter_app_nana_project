@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/CameraProviders.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,8 +12,10 @@ class PageCameraPreview extends ConsumerWidget {
     context.push('/write');
   }
 
-  back(BuildContext context) {
-    context.push('/camera');
+  back(BuildContext context, WidgetRef ref) {
+    ref.invalidate(cameraControllerProvider);
+    ref.read(countdownProvider.notifier).resetTimer();
+    context.go('/camera');
   }
 
   @override
@@ -132,7 +135,7 @@ class PageCameraPreview extends ConsumerWidget {
     );
 
     final backButton = CupertinoButton(
-      onPressed: () => back(context),
+      onPressed: () => back(context, ref),
       child: backButtonChild,
     );
 

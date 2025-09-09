@@ -14,7 +14,7 @@ class PageQR extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var downloadURL = ref.read(downloadURLProvider);
+    var downloadURL = ref.watch(downloadURLProvider);
     final qr = Container(
       padding: const EdgeInsets.all(50),
       decoration: BoxDecoration(

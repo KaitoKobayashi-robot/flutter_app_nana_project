@@ -91,8 +91,9 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     _controller.redo();
   }
 
-  push(BuildContext context) {
-    captureAndSavePng();
+  Future<void> push(BuildContext context) async {
+    await captureAndSavePng();
+    if (!context.mounted) return;
     context.push('/percent_indicator');
   }
 

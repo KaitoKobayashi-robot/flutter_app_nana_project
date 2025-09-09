@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/page_start.dart';
 import 'package:flutter_app_nana_project/page_camera.dart';
 import 'package:flutter_app_nana_project/page_QR.dart';
-import 'package:flutter_app_nana_project/page_percent_indicator.dart';
 import 'package:flutter_app_nana_project/page_write.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -33,10 +32,6 @@ class Home extends ConsumerWidget {
       GoRoute(
         path: '/camera_preview',
         builder: (context, state) => const PageCameraPreview(),
-      ),
-      GoRoute(
-        path: '/percent_indicator',
-        builder: (context, state) => const PagePercentIndicator(),
       ),
       GoRoute(path: '/write', builder: (context, state) => PageWrite()),
       GoRoute(path: '/QR', builder: (context, state) => const PageQR()),
