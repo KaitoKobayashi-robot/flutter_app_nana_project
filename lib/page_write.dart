@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_nana_project/PercentIndicatorProvider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signature/signature.dart';
 import 'package:flutter/rendering.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'DownloadURL.dart';
 import 'UserImage.dart';
+import 'package:flutter_app_nana_project/page_percent_indicator.dart';
 
 final imageInfoProvider = Provider.autoDispose<Map<String, double>>((ref) {
   final imageData = ref.watch(userImageProvider);
@@ -36,6 +38,9 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   final GlobalKey _completeImgKey = GlobalKey();
   final ValueNotifier<bool> _hasSignedNotifire = ValueNotifier<bool>(false);
   static const imagescale = 1.2;
+
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -58,21 +63,33 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     super.dispose();
   }
 
-  Future<void> captureAndSavePng() async {
+  Future<void> captureAndSavePng(void Function(double) onProgress) async {
     final boudary =
         _completeImgKey.currentContext!.findRenderObject()
             as RenderRepaintBoundary;
     final ui.Image image = await boudary.toImage(pixelRatio: 3.0);
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+
+    onProgress(0.25);
+    await Future.delayed(const Duration(milliseconds: 500));
+
     if (byteData != null) {
       final pngBytes = byteData.buffer.asUint8List();
       try {
         String filename =
             'user_images/image${DateTime.now().microsecondsSinceEpoch}.png';
         final uploadRef = storageRef.child(filename);
+
+        onProgress(0.5);
+
         await uploadRef.putData(pngBytes);
+
+        onProgress(0.75);
+
         final downloadURL = await uploadRef.getDownloadURL();
         ref.read(downloadURLProvider.notifier).state = downloadURL;
+
+        onProgress(1.0);
       } catch (e) {
         debugPrint('File upload failed: $e');
       }
@@ -92,9 +109,17 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   }
 
   Future<void> push(BuildContext context) async {
-    await captureAndSavePng();
+    setState(() {
+      isLoading = true;
+    });
+    await captureAndSavePng((progress) {
+      ref.read(uploadProgressProvider.notifier).state = progress;
+    });
+
+    await Future.delayed(const Duration(milliseconds: 500));
+
     if (!context.mounted) return;
-    context.push('/percent_indicator');
+    context.push('/QR');
   }
 
   @override
@@ -169,34 +194,36 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     return CupertinoPageScaffold(
       backgroundColor: Color.fromARGB(255, 249, 249, 146),
       child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('書き込み画面'),
-            Card(
-              elevation: 4,
-              child: RepaintBoundary(
-                key: _completeImgKey,
-                child: SizedBox(
-                  width: imageWidth,
-                  height: imageHeight,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Align(alignment: Alignment.center, child: image),
-                      Align(
-                        alignment: Alignment(0, 0.8),
-                        child: Card(elevation: 4, child: signatureArea),
+        child: isLoading
+            ? progressIndicatorBuilder(context, ref)
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('書き込み画面'),
+                  Card(
+                    elevation: 4,
+                    child: RepaintBoundary(
+                      key: _completeImgKey,
+                      child: SizedBox(
+                        width: imageWidth,
+                        height: imageHeight,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Align(alignment: Alignment.center, child: image),
+                            Align(
+                              alignment: Alignment(0, 0.8),
+                              child: Card(elevation: 4, child: signatureArea),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  buttonBuilder,
+                  pushButton,
+                ],
               ),
-            ),
-            buttonBuilder,
-            pushButton,
-          ],
-        ),
       ),
     );
   }
