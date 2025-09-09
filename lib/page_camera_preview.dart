@@ -12,10 +12,13 @@ class PageCameraPreview extends ConsumerWidget {
     context.push('/write');
   }
 
-  back(BuildContext context, WidgetRef ref) {
-    ref.invalidate(cameraControllerProvider);
+  back(BuildContext context, WidgetRef ref) async {
     ref.read(countdownProvider.notifier).resetTimer();
-    context.go('/camera');
+
+    if (context.mounted) {
+      context.pop();
+      context.pop();
+    }
   }
 
   @override
