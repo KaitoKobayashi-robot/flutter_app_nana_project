@@ -2,9 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 
-final cameraControllerProvider = FutureProvider.autoDispose<CameraController>((
-  ref,
-) async {
+final cameraControllerProvider = FutureProvider<CameraController>((ref) async {
   // Providerが実行されるタイミングでカメラリストを取得
   final cameras = await availableCameras();
 
@@ -33,10 +31,9 @@ final cameraControllerProvider = FutureProvider.autoDispose<CameraController>((
   return controller;
 });
 
-final countdownProvider =
-    StateNotifierProvider.autoDispose<CountdownNotifier, int>((ref) {
-      return CountdownNotifier();
-    });
+final countdownProvider = StateNotifierProvider<CountdownNotifier, int>((ref) {
+  return CountdownNotifier();
+});
 
 class CountdownNotifier extends StateNotifier<int> {
   // 初期値は0（タイマー非作動中）
@@ -60,6 +57,12 @@ class CountdownNotifier extends StateNotifier<int> {
         _timer?.cancel();
       }
     });
+  }
+
+  // タイマーをリセットするメソッド
+  void resetTimer() {
+    _timer?.cancel();
+    state = 0;
   }
 
   @override

@@ -9,7 +9,7 @@ class PageQR extends ConsumerWidget {
   const PageQR({super.key});
 
   push(BuildContext context) {
-    context.push('/start');
+    context.go('/start');
   }
 
   @override

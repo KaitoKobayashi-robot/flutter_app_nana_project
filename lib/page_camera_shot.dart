@@ -12,12 +12,11 @@ class PageCameraShot extends ConsumerStatefulWidget {
 }
 
 class _PageCameraShotState extends ConsumerState<PageCameraShot> {
+  bool _timerStarted = false;
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(countdownProvider.notifier).startTimer();
-    });
   }
 
   Future<void> takePicture() async {
@@ -37,9 +36,10 @@ class _PageCameraShotState extends ConsumerState<PageCameraShot> {
       );
       if (context.mounted) {
         ref.invalidate(cameraControllerProvider);
-        ref.read(countdownProvider.notifier).startTimer();
+        ref.read(countdownProvider.notifier).resetTimer();
       }
     } catch (e) {
+      if (!mounted) return;
       if (!context.mounted) return;
       showCupertinoDialog(
         context: context,
@@ -125,13 +125,23 @@ class _PageCameraShotState extends ConsumerState<PageCameraShot> {
     return CupertinoPageScaffold(
       backgroundColor: Color.fromARGB(255, 249, 249, 146),
       child: controller.when(
-        data: (controller) => buildCameraPreview(
-          context,
-          controller,
-          countdown,
-          ref,
-          takePicture,
-        ),
+        data: (controller) {
+          if (!_timerStarted) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ref.read(countdownProvider.notifier).startTimer();
+              setState(() {
+                _timerStarted = true;
+              });
+            });
+          }
+          return buildCameraPreview(
+            context,
+            controller,
+            countdown,
+            ref,
+            takePicture,
+          );
+        },
         loading: () => const Center(child: CupertinoActivityIndicator()),
         error: (error, stackTrace) => Center(child: Text('Error: $error')),
       ),
