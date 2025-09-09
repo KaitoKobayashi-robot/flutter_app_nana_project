@@ -14,21 +14,17 @@ class PageQR extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var downloadURL = ref.watch(downloadURLProvider);
-    if (downloadURL == '') {
-      downloadURL = 'https://google.com';
-    }
-
+    var downloadURL = ref.read(downloadURLProvider);
     final qr = Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(50),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: CupertinoColors.white,
       ),
       child: QrImageView(
         data: downloadURL,
-        version: 2,
-        size: 400,
+        version: QrVersions.auto,
+        size: 350,
         gapless: true,
         eyeStyle: const QrEyeStyle(
           eyeShape: QrEyeShape.square,
@@ -38,6 +34,16 @@ class PageQR extends ConsumerWidget {
           dataModuleShape: QrDataModuleShape.square,
           color: CupertinoColors.black,
         ),
+        errorStateBuilder: (cxt, err) {
+          return Container(
+            child: Center(
+              child: Text(
+                'Uh oh! Something went wrong...',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        },
       ),
     );
 
