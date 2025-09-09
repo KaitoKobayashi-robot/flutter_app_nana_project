@@ -12,7 +12,7 @@ class PageCamera extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final button = Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 100),
       width: 430,
       height: 140,
       decoration: BoxDecoration(

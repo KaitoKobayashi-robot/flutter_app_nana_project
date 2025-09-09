@@ -8,16 +8,20 @@ import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 import 'dart:io';
 import 'package:gallery_saver_plus/gallery_saver.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'DownloadURL.dart';
 
-class PageWrite extends StatefulWidget {
+class PageWrite extends ConsumerStatefulWidget {
   final Uint8List imageData;
   const PageWrite({super.key, required this.imageData});
 
   @override
-  State<PageWrite> createState() => _PageWriteState();
+  ConsumerState<PageWrite> createState() => _PageWriteState();
 }
 
-class _PageWriteState extends State<PageWrite> {
+class _PageWriteState extends ConsumerState<PageWrite> {
+  final storageRef = FirebaseStorage.instance.ref();
   late final SignatureController _controller;
   final GlobalKey _completeImgKey = GlobalKey();
   bool _hasSigned = false;
@@ -64,6 +68,16 @@ class _PageWriteState extends State<PageWrite> {
       final file = await File('${tempDir.path}/signed_image_.png').create();
       await file.writeAsBytes(pngBytes);
       await GallerySaver.saveImage(file.path);
+      try {
+        String filename =
+            'user_images/image${DateTime.now().microsecondsSinceEpoch}.png';
+        final uploadRef = storageRef.child(filename);
+        await uploadRef.putData(pngBytes);
+        final downloadURL = await uploadRef.getDownloadURL();
+        ref.read(downloadURLProvider.notifier).state = downloadURL;
+      } catch (e) {
+        debugPrint('File upload failed: $e');
+      }
     }
   }
 
@@ -76,7 +90,7 @@ class _PageWriteState extends State<PageWrite> {
 
   push(BuildContext context) {
     captureAndSavePng();
-    context.push('/QR');
+    context.push('/percent_indicator');
   }
 
   @override

@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final percentProvider = AutoDisposeNotifierProvider<PercentNotifier, double>(() {
-  return PercentNotifier();
-});
+final percentProvider = AutoDisposeNotifierProvider<PercentNotifier, double>(
+  () {
+    return PercentNotifier();
+  },
+);
 
 class PercentNotifier extends AutoDisposeNotifier<double> {
   @override
@@ -11,10 +13,10 @@ class PercentNotifier extends AutoDisposeNotifier<double> {
   }
 
   void startIndicator() async {
-    if(state != 0.00) return;
+    if (state != 0.00) return;
 
     await Future.delayed(const Duration(milliseconds: 500));
-    state = 0.20; 
+    state = 0.20;
 
     await Future.delayed(const Duration(milliseconds: 500));
     state = 0.40;
@@ -25,7 +27,9 @@ class PercentNotifier extends AutoDisposeNotifier<double> {
     await Future.delayed(const Duration(milliseconds: 500));
     state = 0.80;
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(seconds: 1));
     state = 1.00;
+
+    await Future.delayed(const Duration(seconds: 1));
   }
 }

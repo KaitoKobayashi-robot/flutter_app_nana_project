@@ -27,7 +27,7 @@ class _PageprecentIndicatorState extends ConsumerState<PagePercentIndicator> {
           await Future.delayed(const Duration(seconds: 1));
           if (context.mounted) {
             ref.invalidate(percentProvider);
-            context.push('/camera_preview');
+            context.push('/QR');
           }
         });
       }

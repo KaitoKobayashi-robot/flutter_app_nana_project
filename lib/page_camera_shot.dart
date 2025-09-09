@@ -25,13 +25,20 @@ class _PageCameraShotState extends ConsumerState<PageCameraShot> {
 
     try {
       final controller = await ref.read(cameraControllerProvider.future);
+      if (!controller.value.isInitialized) {
+        throw Exception('Camera is not initialized');
+      }
       final XFile image = await controller.takePicture();
       if (!context.mounted) return;
-      Navigator.of(context).push(
+      await Navigator.of(context).push(
         CupertinoPageRoute(
           builder: (context) => PageCameraPreview(imagePath: image.path),
         ),
       );
+      if (context.mounted) {
+        ref.invalidate(cameraControllerProvider);
+        ref.read(countdownProvider.notifier).startTimer();
+      }
     } catch (e) {
       if (!context.mounted) return;
       showCupertinoDialog(
@@ -62,7 +69,7 @@ class _PageCameraShotState extends ConsumerState<PageCameraShot> {
     final countdown = ref.watch(countdownProvider);
 
     ref.listen<int>(countdownProvider, (previous, next) {
-      if (next == 0 && previous != 0) {
+      if (next == 0 && (previous != 0 && previous != null)) {
         takePicture();
       }
     });

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/page_start.dart';
 import 'package:flutter_app_nana_project/page_camera.dart';
@@ -11,7 +12,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_app_nana_project/page_camera_shot.dart';
 import 'package:flutter_app_nana_project/page_camera_preview.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final scope = ProviderScope(child: Home());
   runApp(scope);
 }

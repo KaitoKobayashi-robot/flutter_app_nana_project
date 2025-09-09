@@ -24,11 +24,11 @@ final cameraControllerProvider = FutureProvider.autoDispose<CameraController>((
     enableAudio: false,
   );
 
-  await controller.initialize();
-
   ref.onDispose(() {
     controller.dispose();
   });
+
+  await controller.initialize();
 
   return controller;
 });
