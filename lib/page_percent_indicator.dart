@@ -39,24 +39,26 @@ class _PageprecentIndicatorState extends ConsumerState<PagePercentIndicator> {
       percent: percent,
       backgroundColor: CupertinoColors.inactiveGray,
       progressColor: Color.fromARGB(255, 253, 141, 255),
-      radius: 100.0,
-      lineWidth: 20,
+      radius: 200.0,
+      lineWidth: 30,
       center: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${percent * 100}%',
+              '${(percent * 100).toInt()}%',
               style: TextStyle(
+                fontSize: 30,
                 color: Color.fromARGB(255, 253, 141, 255),
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               'COMPLETED',
               style: TextStyle(
+                fontSize: 30,
                 color: Color.fromARGB(255, 253, 141, 255),
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
