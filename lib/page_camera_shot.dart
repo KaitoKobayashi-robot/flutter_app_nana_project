@@ -106,7 +106,7 @@ class _PageCameraShotState extends ConsumerState<PageCameraShot> {
                 '$countdown',
                 style: const TextStyle(
                   fontSize: 100,
-                  color: Color.fromARGB(255, 253, 141, 255),
+                  color: Color.fromARGB(255, 128, 219, 255),
                   fontWeight: FontWeight.bold,
                   shadows: [
                     Shadow(

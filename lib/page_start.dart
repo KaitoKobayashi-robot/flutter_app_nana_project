@@ -74,7 +74,11 @@ class PageStart extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Expanded(child: Center(child: const Text('開始画面'))),
+            Expanded(
+              child: Center(
+                child: const Text(style: TextStyle(fontSize: 40), '開始画面'),
+              ),
+            ),
             pushButton,
           ],
         ),

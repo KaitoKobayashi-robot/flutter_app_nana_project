@@ -37,7 +37,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   late final SignatureController _controller;
   final GlobalKey _completeImgKey = GlobalKey();
   final ValueNotifier<bool> _hasSignedNotifire = ValueNotifier<bool>(false);
-  static const imagescale = 1.2;
+  static const imagescale = 1.4;
 
   bool isLoading = false;
 
@@ -64,6 +64,8 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   }
 
   Future<void> captureAndSavePng(void Function(double) onProgress) async {
+    onProgress(0.1);
+
     final boudary =
         _completeImgKey.currentContext!.findRenderObject()
             as RenderRepaintBoundary;
@@ -166,9 +168,62 @@ class _PageWriteState extends ConsumerState<PageWrite> {
       },
     );
 
+    final completeButton = Container(
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+      width: 430,
+      height: 140,
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 253, 141, 255),
+        borderRadius: BorderRadius.circular(70),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0, 10),
+            blurRadius: 3,
+            blurStyle: BlurStyle.normal,
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '完成！',
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  color: Colors.black26,
+                  offset: Offset(0, 3),
+                  blurRadius: 3,
+                ),
+              ],
+            ),
+          ),
+          const Text(
+            'complete!',
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  color: Colors.black26,
+                  offset: Offset(0, 3),
+                  blurRadius: 3,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
     final pushButton = CupertinoButton(
       onPressed: () => push(context),
-      child: const Text('完成'),
+      child: completeButton,
     );
 
     const signatureWidth = 450.0;
@@ -197,9 +252,14 @@ class _PageWriteState extends ConsumerState<PageWrite> {
         child: isLoading
             ? progressIndicatorBuilder(context, ref)
             : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text('書き込み画面'),
+                  SizedBox(height: 30),
+                  const Text(
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    '褒めたい相手に「褒め言葉」を書き込もう！',
+                  ),
+                  SizedBox(height: 30),
                   Card(
                     elevation: 4,
                     child: RepaintBoundary(
@@ -221,6 +281,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
                     ),
                   ),
                   buttonBuilder,
+                  SizedBox(height: 30),
                   pushButton,
                 ],
               ),

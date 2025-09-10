@@ -105,12 +105,34 @@ class PageQR extends ConsumerWidget {
       child: button,
     );
 
+    final titleText = const Text(
+      '画像が完成しました！',
+      style: TextStyle(
+        fontSize: 40,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+    );
+
+    final discriptionText = const Text(
+      'QRコードから保存して、あなたの\n「褒めたい相手」に送りましょう！',
+      style: TextStyle(
+        fontSize: 20,
+        // fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+    );
+
     return CupertinoPageScaffold(
       backgroundColor: Color.fromARGB(255, 249, 249, 146),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(height: 200),
+            titleText,
+            SizedBox(height: 50),
+            discriptionText,
             Expanded(child: Center(child: qr)),
             pushButton,
           ],

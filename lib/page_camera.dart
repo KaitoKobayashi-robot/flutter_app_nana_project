@@ -74,7 +74,11 @@ class PageCamera extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Expanded(child: Center(child: const Text('撮影画面'))),
+            Expanded(
+              child: Center(
+                child: const Text(style: TextStyle(fontSize: 40), '撮影画面'),
+              ),
+            ),
             pushButton,
           ],
         ),

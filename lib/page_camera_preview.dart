@@ -25,8 +25,8 @@ class PageCameraPreview extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final imageData = ref.watch(userImageProvider);
     final backButtonChild = Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
-      width: 230,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      width: 320,
       height: 100,
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 253, 141, 255),
@@ -78,8 +78,8 @@ class PageCameraPreview extends ConsumerWidget {
     );
 
     final pushButtonChild = Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
-      width: 230,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      width: 320,
       height: 100,
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 255, 255, 255),
@@ -145,7 +145,7 @@ class PageCameraPreview extends ConsumerWidget {
     final image = imageData == null
         ? const Text('NO IMAGE')
         : Transform.scale(
-            scale: 0.7,
+            scale: 0.9,
             child: Image.memory(imageData, fit: BoxFit.contain),
           );
 
@@ -155,13 +155,15 @@ class PageCameraPreview extends ConsumerWidget {
         child: imageData == null
             ? const Text('NO IMAGE')
             : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  SizedBox(height: 70),
                   Expanded(child: Center(child: image)),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [backButton, pushButton],
                   ),
+                  SizedBox(height: 70),
                 ],
               ),
       ),
