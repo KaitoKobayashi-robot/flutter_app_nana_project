@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'DownloadURL.dart';
+import 'download_url.dart';
 import 'package:flutter/material.dart';
 
 class PageQR extends ConsumerWidget {

@@ -6,7 +6,7 @@ class PageStart extends StatelessWidget {
   const PageStart({super.key});
 
   push(BuildContext context) {
-    context.push('/camera');
+    context.push('/setting_theme');
   }
 
   @override

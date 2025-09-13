@@ -1,30 +1,21 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/camera_providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'user_image.dart';
 
-class PageCameraPreview extends ConsumerWidget {
-  const PageCameraPreview({super.key});
+class PageSettingTheme extends StatelessWidget {
+  const PageSettingTheme({super.key});
 
   push(BuildContext context) {
-    context.push('/write');
+    context.push('/camera');
   }
 
-  back(BuildContext context, WidgetRef ref) async {
-    ref.read(countdownProvider.notifier).resetTimer();
-
-    if (context.mounted) {
-      context.pop();
-      context.pop();
-    }
+  reset() {
+    debugPrint("RESET!");
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final imageData = ref.watch(userImageProvider);
-    final backButtonChild = Container(
+  Widget build(BuildContext context) {
+    final resetButtonChild = Container(
       margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
       width: 320,
       height: 100,
@@ -44,7 +35,7 @@ class PageCameraPreview extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'もう一度撮る',
+            '選びなおす',
             style: TextStyle(
               color: Color(0xFFFFFFFF),
               fontSize: 20,
@@ -59,7 +50,7 @@ class PageCameraPreview extends ConsumerWidget {
             ),
           ),
           const Text(
-            'ReTake',
+            'Reset',
             style: TextStyle(
               color: Color(0xFFFFFFFF),
               fontSize: 10,
@@ -77,7 +68,7 @@ class PageCameraPreview extends ConsumerWidget {
       ),
     );
 
-    final pushButtonChild = Container(
+    final nextButtonChild = Container(
       margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
       width: 320,
       height: 100,
@@ -130,42 +121,33 @@ class PageCameraPreview extends ConsumerWidget {
       ),
     );
 
-    final pushButton = CupertinoButton(
-      onPressed: () {
-        push(context);
-      },
-      child: pushButtonChild,
+    final nextButton = CupertinoButton(
+      onPressed: () => push(context),
+      child: nextButtonChild,
     );
 
-    final backButton = CupertinoButton(
-      onPressed: () => back(context, ref),
-      child: backButtonChild,
+    final resetButton = CupertinoButton(
+      onPressed: () => reset(),
+      child: resetButtonChild,
     );
-
-    final image = imageData == null
-        ? const Text('NO IMAGE')
-        : Transform.scale(
-            scale: 0.9,
-            child: Image.memory(imageData, fit: BoxFit.contain),
-          );
 
     return CupertinoPageScaffold(
       backgroundColor: Color.fromARGB(255, 249, 249, 146),
       child: Center(
-        child: imageData == null
-            ? const Text('NO IMAGE')
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(height: 70),
-                  Expanded(child: Center(child: image)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [backButton, pushButton],
-                  ),
-                  SizedBox(height: 70),
-                ],
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: const Text(style: TextStyle(fontSize: 40), 'お題選択画面'),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [resetButton, nextButton],
+            ),
+            SizedBox(height: 100),
+          ],
+        ),
       ),
     );
   }

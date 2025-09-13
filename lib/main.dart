@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app_nana_project/page_setting_theme.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/page_start.dart';
 import 'package:flutter_app_nana_project/page_camera.dart';
-import 'package:flutter_app_nana_project/page_QR.dart';
+import 'package:flutter_app_nana_project/page_qr.dart';
 import 'package:flutter_app_nana_project/page_write.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,9 +22,13 @@ class Home extends ConsumerWidget {
   Home({super.key});
 
   final router = GoRouter(
-    initialLocation: '/start',
+    initialLocation: '/setting_theme',
     routes: [
       GoRoute(path: '/start', builder: (context, state) => const PageStart()),
+      GoRoute(
+        path: '/setting_theme',
+        builder: (context, state) => const PageSettingTheme(),
+      ),
       GoRoute(path: '/camera', builder: (context, state) => const PageCamera()),
       GoRoute(
         path: '/camera_shot',
