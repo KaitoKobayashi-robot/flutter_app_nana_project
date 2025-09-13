@@ -1,15 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_app_nana_project/page_setting_theme.dart';
+import 'package:flutter_app_nana_project/pages/page_setting_theme.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/page_start.dart';
-import 'package:flutter_app_nana_project/page_camera.dart';
-import 'package:flutter_app_nana_project/page_qr.dart';
-import 'package:flutter_app_nana_project/page_write.dart';
+import 'package:flutter_app_nana_project/pages/page_start.dart';
+import 'package:flutter_app_nana_project/pages/page_camera.dart';
+import 'package:flutter_app_nana_project/pages/page_qr.dart';
+import 'package:flutter_app_nana_project/pages/page_write.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_app_nana_project/page_camera_shot.dart';
-import 'package:flutter_app_nana_project/page_camera_preview.dart';
+import 'package:flutter_app_nana_project/pages/page_camera_shot.dart';
+import 'package:flutter_app_nana_project/pages/page_camera_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

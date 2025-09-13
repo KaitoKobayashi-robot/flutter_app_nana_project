@@ -2,9 +2,9 @@ import 'package:camera/camera.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
-import 'camera_providers.dart';
+import '../providers/camera_providers.dart';
 import 'dart:async';
-import 'user_image.dart';
+import '../providers/user_image_provider.dart';
 import 'package:image/image.dart' as img;
 import 'dart:typed_data';
 

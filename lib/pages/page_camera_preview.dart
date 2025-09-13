@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/camera_providers.dart';
+import 'package:flutter_app_nana_project/providers/camera_providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'user_image.dart';
+import '../providers/user_image_provider.dart';
 
 class PageCameraPreview extends ConsumerWidget {
   const PageCameraPreview({super.key});
