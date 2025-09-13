@@ -22,7 +22,7 @@ class Home extends ConsumerWidget {
   Home({super.key});
 
   final router = GoRouter(
-    initialLocation: '/setting_theme',
+    initialLocation: '/start',
     routes: [
       GoRoute(path: '/start', builder: (context, state) => const PageStart()),
       GoRoute(

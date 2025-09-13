@@ -1,20 +1,25 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/theme_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PageSettingTheme extends StatelessWidget {
+class PageSettingTheme extends ConsumerWidget {
   const PageSettingTheme({super.key});
 
   push(BuildContext context) {
     context.push('/camera');
   }
 
-  reset() {
+  reset(WidgetRef ref) {
+    ref.read(randomSelectorProvider.notifier).selectRandomItem();
     debugPrint("RESET!");
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedData = ref.watch(randomSelectorProvider);
+
     final resetButtonChild = Container(
       margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
       width: 320,
@@ -127,7 +132,7 @@ class PageSettingTheme extends StatelessWidget {
     );
 
     final resetButton = CupertinoButton(
-      onPressed: () => reset(),
+      onPressed: () => reset(ref),
       child: resetButtonChild,
     );
 
@@ -136,9 +141,11 @@ class PageSettingTheme extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
+            SizedBox(height: 100),
+            const Text('お題選択画面'),
             Expanded(
               child: Center(
-                child: const Text(style: TextStyle(fontSize: 40), 'お題選択画面'),
+                child: Text(selectedData, style: TextStyle(fontSize: 40)),
               ),
             ),
             Row(
