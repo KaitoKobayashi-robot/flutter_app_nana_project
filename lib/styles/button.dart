@@ -15,28 +15,32 @@ Decoration singleButtonDecoration(Color color) {
   );
 }
 
-TextStyle singleButtonTitleStyle = TextStyle(
-  color: CupertinoColors.white,
-  fontSize: 25,
-  fontWeight: FontWeight.bold,
-  shadows: [
-    Shadow(
-      color: CupertinoColors.black.withAlpha(66),
-      offset: Offset(0, 3),
-      blurRadius: 3,
-    ),
-  ],
-);
+TextStyle singleButtonTitleStyle(Color color) {
+  return TextStyle(
+    color: color,
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    shadows: [
+      Shadow(
+        color: CupertinoColors.black.withAlpha(66),
+        offset: Offset(0, 3),
+        blurRadius: 3,
+      ),
+    ],
+  );
+}
 
-TextStyle singleButtonSubTytleStyle = TextStyle(
-  color: CupertinoColors.white,
-  fontSize: 15,
-  fontWeight: FontWeight.bold,
-  shadows: [
-    Shadow(
-      color: CupertinoColors.black.withAlpha(66),
-      offset: Offset(0, 3),
-      blurRadius: 3,
-    ),
-  ],
-);
+TextStyle singleButtonSubTytleStyle(Color color) {
+  return TextStyle(
+    color: color,
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    shadows: [
+      Shadow(
+        color: CupertinoColors.black.withAlpha(66),
+        offset: Offset(0, 3),
+        blurRadius: 3,
+      ),
+    ],
+  );
+}

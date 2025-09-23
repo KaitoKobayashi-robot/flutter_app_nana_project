@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/widgets/button.dart';
-import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/pages/page_start/widgets/button.dart';
 import 'package:go_router/go_router.dart';
 
 class PageStart extends StatelessWidget {
@@ -12,11 +11,9 @@ class PageStart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nextButton = singleButtonBuilder('次へ', 'next', buttonMain1);
-
     final pushButton = CupertinoButton(
       onPressed: () => push(context),
-      child: nextButton,
+      child: button,
     );
 
     return CupertinoPageScaffold(

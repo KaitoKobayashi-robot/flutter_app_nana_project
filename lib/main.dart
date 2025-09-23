@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_app_nana_project/pages/page_setting_theme.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/page_start.dart';
+import 'package:flutter_app_nana_project/pages/page_start/page_start.dart';
 import 'package:flutter_app_nana_project/pages/page_camera.dart';
 import 'package:flutter_app_nana_project/pages/page_qr.dart';
 import 'package:flutter_app_nana_project/pages/page_write.dart';
