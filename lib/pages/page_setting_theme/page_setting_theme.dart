@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/page_setting_theme/widgets/button.dart';
+import 'package:flutter_app_nana_project/pages/page_setting_theme/widgets/theme_buttons.dart';
 import 'package:flutter_app_nana_project/providers/theme_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,16 +20,6 @@ class PageSettingTheme extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedData = ref.watch(randomSelectorProvider);
 
-    final nextButton = CupertinoButton(
-      onPressed: () => push(context),
-      child: nextButtonChild,
-    );
-
-    final resetButton = CupertinoButton(
-      onPressed: () => reset(ref),
-      child: resetButtonChild,
-    );
-
     return CupertinoPageScaffold(
       backgroundColor: Color.fromARGB(255, 249, 249, 146),
       child: Center(
@@ -44,7 +34,10 @@ class PageSettingTheme extends ConsumerWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [resetButton, nextButton],
+              children: [
+                ResetButton(onPressed: () => reset(ref)),
+                NextButton(onPressed: () => push(context)),
+              ],
             ),
             SizedBox(height: 100),
           ],
