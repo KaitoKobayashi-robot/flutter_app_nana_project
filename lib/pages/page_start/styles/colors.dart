@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-Color buttonBgColor = Color.fromARGB(255, 253, 141, 255);
-Color buttonTextColor = CupertinoColors.white;
+class ButtonColors {
+  static const Color buttonBgColor = Color.fromARGB(255, 253, 141, 255);
+  static const Color buttonTextColor = CupertinoColors.white;
+}

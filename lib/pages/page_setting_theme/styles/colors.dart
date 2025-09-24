@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-Color resetButtonBgColor = Color.fromARGB(255, 253, 141, 255);
-Color resetButtonTextColor = CupertinoColors.white;
+class ButtonColors {
+  static const Color resetButtonBgColor = Color.fromARGB(255, 253, 141, 255);
+  static const Color resetButtonTextColor = CupertinoColors.white;
 
-Color nextButtonBgColor = CupertinoColors.white;
-Color nextButtonTextColor = CupertinoColors.black;
+  static const Color nextButtonBgColor = CupertinoColors.white;
+  static const Color nextButtonTextColor = CupertinoColors.black;
+}

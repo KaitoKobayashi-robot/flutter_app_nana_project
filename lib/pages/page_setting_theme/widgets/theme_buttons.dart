@@ -14,8 +14,8 @@ class ResetButton extends StatelessWidget {
       child: doubleButtonBuilder(
         "選びなおす",
         "RESET!",
-        resetButtonBgColor,
-        resetButtonTextColor,
+        ButtonColors.resetButtonBgColor,
+        ButtonColors.resetButtonTextColor,
       ),
     );
   }
@@ -33,8 +33,8 @@ class NextButton extends StatelessWidget {
       child: doubleButtonBuilder(
         "次へ",
         "NEXT",
-        nextButtonBgColor,
-        nextButtonTextColor,
+        ButtonColors.nextButtonBgColor,
+        ButtonColors.nextButtonTextColor,
       ),
     );
   }

@@ -11,7 +11,12 @@ class SingleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       onPressed: onPressed,
-      child: doubleButtonBuilder('次へ', 'next', buttonBgColor, buttonTextColor),
+      child: doubleButtonBuilder(
+        '次へ',
+        'next',
+        ButtonColors.buttonBgColor,
+        ButtonColors.buttonTextColor,
+      ),
     );
   }
 }
