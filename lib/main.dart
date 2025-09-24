@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_app_nana_project/pages/page_setting_theme/page_setting_theme.dart';
+import 'package:flutter_app_nana_project/pages/page_terms/page_terms.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/page_start/page_start.dart';
@@ -25,6 +26,7 @@ class Home extends ConsumerWidget {
     initialLocation: '/start',
     routes: [
       GoRoute(path: '/start', builder: (context, state) => const PageStart()),
+      GoRoute(path: "/terms", builder: (context, state) => const PageTerms()),
       GoRoute(
         path: '/setting_theme',
         builder: (context, state) => const PageSettingTheme(),

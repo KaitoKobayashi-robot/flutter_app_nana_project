@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 
 /* Button Container Design */
 
@@ -12,6 +13,10 @@ BoxShadow buttonShadow = BoxShadow(
 Decoration buttonDecoration(Color color) {
   return BoxDecoration(
     color: color,
+    border: Border.all(
+      width: 3,
+      color: color == MainColors.black ? MainColors.white : MainColors.black,
+    ),
     borderRadius: BorderRadius.circular(70),
     boxShadow: [buttonShadow],
   );
@@ -22,7 +27,7 @@ Decoration buttonDecoration(Color color) {
 /* Button Text Design */
 
 const double offsetTextSize = 10;
-const double singleButtonTextSize = 25;
+const double singleButtonTextSize = 35;
 const double doubleButtonTextSize = 20;
 
 Shadow textShadow = Shadow(

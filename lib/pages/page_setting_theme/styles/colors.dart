@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 
 class ButtonColors {
-  static const Color resetButtonBgColor = Color.fromARGB(255, 253, 141, 255);
-  static const Color resetButtonTextColor = CupertinoColors.white;
+  static const Color resetButtonBgColor = MainColors.mainColor;
+  static const Color resetButtonTextColor = MainColors.white;
 
-  static const Color nextButtonBgColor = CupertinoColors.white;
-  static const Color nextButtonTextColor = CupertinoColors.black;
+  static const Color nextButtonBgColor = MainColors.black;
+  static const Color nextButtonTextColor = MainColors.white;
 }

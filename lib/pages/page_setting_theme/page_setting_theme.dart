@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/page_setting_theme/widgets/theme_buttons.dart';
 import 'package:flutter_app_nana_project/providers/theme_provider.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +22,7 @@ class PageSettingTheme extends ConsumerWidget {
     final selectedData = ref.watch(randomSelectorProvider);
 
     return CupertinoPageScaffold(
-      backgroundColor: Color.fromARGB(255, 249, 249, 146),
+      backgroundColor: MainColors.bgColor,
       child: Center(
         child: Column(
           children: [
