@@ -6,12 +6,12 @@ import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/start/page_start.dart';
 import 'package:flutter_app_nana_project/pages/camera/page_camera.dart';
-import 'package:flutter_app_nana_project/pages/page_qr.dart';
-import 'package:flutter_app_nana_project/pages/page_write.dart';
+import 'package:flutter_app_nana_project/pages/qr/page_qr.dart';
+import 'package:flutter_app_nana_project/pages/write/page_write.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_app_nana_project/pages/page_camera_shot.dart';
-import 'package:flutter_app_nana_project/pages/page_camera_preview.dart';
+import 'package:flutter_app_nana_project/pages/camera_preview/page_camera_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ class Home extends ConsumerWidget {
   Home({super.key});
 
   final router = GoRouter(
-    initialLocation: '/camera',
+    initialLocation: '/camera_preview',
     routes: [
       GoRoute(path: '/start', builder: (context, state) => const PageStart()),
       GoRoute(path: "/terms", builder: (context, state) => const PageTerms()),

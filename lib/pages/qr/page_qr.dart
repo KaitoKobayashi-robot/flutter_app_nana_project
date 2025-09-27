@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/pages/qr/widgets/buttons.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../providers/download_url_provider.dart';
+import '../../providers/download_url_provider.dart';
 import 'package:flutter/material.dart';
 
 class PageQR extends ConsumerWidget {
@@ -47,64 +49,6 @@ class PageQR extends ConsumerWidget {
       ),
     );
 
-    final button = Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 100),
-      width: 430,
-      height: 140,
-      decoration: BoxDecoration(
-        color: Color.fromARGB(255, 253, 141, 255),
-        borderRadius: BorderRadius.circular(70),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 10),
-            blurRadius: 3,
-            blurStyle: BlurStyle.normal,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            '最初に戻る',
-            style: TextStyle(
-              color: Color.fromARGB(255, 249, 249, 146),
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  color: Colors.black26,
-                  offset: Offset(0, 3),
-                  blurRadius: 3,
-                ),
-              ],
-            ),
-          ),
-          const Text(
-            'return',
-            style: TextStyle(
-              color: Color.fromARGB(255, 249, 249, 146),
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  color: Colors.black26,
-                  offset: Offset(0, 3),
-                  blurRadius: 3,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    final pushButton = CupertinoButton(
-      onPressed: () => push(context),
-      child: button,
-    );
-
     final titleText = const Text(
       '画像が完成しました！',
       style: TextStyle(
@@ -124,7 +68,7 @@ class PageQR extends ConsumerWidget {
     );
 
     return CupertinoPageScaffold(
-      backgroundColor: Color.fromARGB(255, 249, 249, 146),
+      backgroundColor: MainColors.bgColor,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -134,7 +78,8 @@ class PageQR extends ConsumerWidget {
             SizedBox(height: 50),
             discriptionText,
             Expanded(child: Center(child: qr)),
-            pushButton,
+            SingleButton(onPressed: () => push(context)),
+            SizedBox(height: 100),
           ],
         ),
       ),

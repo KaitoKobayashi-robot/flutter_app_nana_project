@@ -12,8 +12,8 @@ class TakePhotoButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       child: singleButtonBuilder(
-        "撮影",
-        "Take Photo!",
+        "撮影する",
+        "start",
         ButtonColors.captureButtonBgColor,
         ButtonColors.captureButtonTextColor,
       ),

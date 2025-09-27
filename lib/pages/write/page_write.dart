@@ -1,15 +1,17 @@
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_nana_project/pages/write/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/providers/percent_indicator_provider.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signature/signature.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../providers/download_url_provider.dart';
-import '../providers/user_image_provider.dart';
+import '../../providers/download_url_provider.dart';
+import '../../providers/user_image_provider.dart';
 import 'package:flutter_app_nana_project/pages/page_percent_indicator.dart';
 
 final imageInfoProvider = Provider.autoDispose<Map<String, double>>((ref) {
@@ -37,7 +39,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   late final SignatureController _controller;
   final GlobalKey _completeImgKey = GlobalKey();
   final ValueNotifier<bool> _hasSignedNotifire = ValueNotifier<bool>(false);
-  static const imagescale = 1.4;
+  static const imagescale = 4.5;
 
   bool isLoading = false;
 
@@ -131,7 +133,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
 
     if (imageData == null) {
       return CupertinoPageScaffold(
-        backgroundColor: Color.fromARGB(255, 249, 249, 146),
+        backgroundColor: MainColors.bgColor,
         child: Center(child: const Text('NO IMAGE')),
       );
     }
@@ -168,64 +170,6 @@ class _PageWriteState extends ConsumerState<PageWrite> {
       },
     );
 
-    final completeButton = Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-      width: 430,
-      height: 140,
-      decoration: BoxDecoration(
-        color: Color.fromARGB(255, 253, 141, 255),
-        borderRadius: BorderRadius.circular(70),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 10),
-            blurRadius: 3,
-            blurStyle: BlurStyle.normal,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            '完成！',
-            style: TextStyle(
-              color: Color(0xFFFFFFFF),
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  color: Colors.black26,
-                  offset: Offset(0, 3),
-                  blurRadius: 3,
-                ),
-              ],
-            ),
-          ),
-          const Text(
-            'complete!',
-            style: TextStyle(
-              color: Color(0xFFFFFFFF),
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  color: Colors.black26,
-                  offset: Offset(0, 3),
-                  blurRadius: 3,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    final pushButton = CupertinoButton(
-      onPressed: () => push(context),
-      child: completeButton,
-    );
-
     const signatureWidth = 450.0;
     const signatureHeight = 300.0;
 
@@ -247,7 +191,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     );
 
     return CupertinoPageScaffold(
-      backgroundColor: Color.fromARGB(255, 249, 249, 146),
+      backgroundColor: MainColors.bgColor,
       child: SafeArea(
         child: isLoading
             ? progressIndicatorBuilder(context, ref)
@@ -281,8 +225,8 @@ class _PageWriteState extends ConsumerState<PageWrite> {
                     ),
                   ),
                   buttonBuilder,
+                  SingleButton(onPressed: () => push(context)),
                   SizedBox(height: 30),
-                  pushButton,
                 ],
               ),
       ),
