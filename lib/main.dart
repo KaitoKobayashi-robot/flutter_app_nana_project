@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app_nana_project/pages/page_camera_control/page_camera_control.dart';
 import 'package:flutter_app_nana_project/pages/page_setting_theme/page_setting_theme.dart';
 import 'package:flutter_app_nana_project/pages/page_terms/page_terms.dart';
 import 'firebase_options.dart';
@@ -23,13 +24,17 @@ class Home extends ConsumerWidget {
   Home({super.key});
 
   final router = GoRouter(
-    initialLocation: '/start',
+    initialLocation: '/camera_control',
     routes: [
       GoRoute(path: '/start', builder: (context, state) => const PageStart()),
       GoRoute(path: "/terms", builder: (context, state) => const PageTerms()),
       GoRoute(
         path: '/setting_theme',
         builder: (context, state) => const PageSettingTheme(),
+      ),
+      GoRoute(
+        path: '/camera_control',
+        builder: (context, state) => const PageCameraControl(),
       ),
       GoRoute(path: '/camera', builder: (context, state) => const PageCamera()),
       GoRoute(
