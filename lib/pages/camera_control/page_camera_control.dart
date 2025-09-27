@@ -15,7 +15,7 @@ class PageCameraControl extends StatelessWidget {
 
     takePhoto(BuildContext context) {
       triggerDocRef.update({'takePhoto': true});
-      context.push('/camera_preview');
+      context.push('/camera_waiting');
     }
 
     return CupertinoPageScaffold(
