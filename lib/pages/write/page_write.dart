@@ -12,7 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/download_url_provider.dart';
 import '../../providers/user_image_provider.dart';
-import 'package:flutter_app_nana_project/pages/page_percent_indicator.dart';
+import 'package:flutter_app_nana_project/widgets/percent_indicator.dart';
 
 final imageInfoProvider = Provider.autoDispose<Map<String, double>>((ref) {
   final imageData = ref.watch(userImageProvider);
