@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/page_terms/widgets/button.dart';
-import 'package:flutter_app_nana_project/pages/page_terms/widgets/terms.dart';
+import 'package:flutter_app_nana_project/pages/start/widgets/buttons.dart';
+import 'package:flutter_app_nana_project/pages/start/widgets/cards.dart';
+import 'package:flutter_app_nana_project/pages/start/widgets/logo.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:go_router/go_router.dart';
 
-class PageTerms extends StatelessWidget {
-  const PageTerms({super.key});
+class PageStart extends StatelessWidget {
+  const PageStart({super.key});
 
   push(BuildContext context) {
-    context.push('/setting_theme');
+    context.push('/terms');
   }
 
   @override
@@ -17,11 +18,10 @@ class PageTerms extends StatelessWidget {
       backgroundColor: MainColors.bgColor,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(height: 150),
-            Expanded(child: Terms()),
-            SizedBox(height: 50),
+            Logo(),
+            Expanded(child: Center(child: Cards())),
             SingleButton(onPressed: () => push(context)),
             SizedBox(height: 100),
           ],

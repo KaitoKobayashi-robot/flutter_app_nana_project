@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/page_start/styles/colors.dart';
+import 'package:flutter_app_nana_project/pages/start/styles/colors.dart';
 
 class Cards extends StatelessWidget {
   const Cards({super.key});

@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_app_nana_project/pages/page_camera_control/page_camera_control.dart';
-import 'package:flutter_app_nana_project/pages/page_setting_theme/page_setting_theme.dart';
-import 'package:flutter_app_nana_project/pages/page_terms/page_terms.dart';
+import 'package:flutter_app_nana_project/pages/camera_control/page_camera_control.dart';
+import 'package:flutter_app_nana_project/pages/setting_theme/page_setting_theme.dart';
+import 'package:flutter_app_nana_project/pages/terms/page_terms.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/page_start/page_start.dart';
-import 'package:flutter_app_nana_project/pages/page_camera.dart';
+import 'package:flutter_app_nana_project/pages/start/page_start.dart';
+import 'package:flutter_app_nana_project/pages/camera/page_camera.dart';
 import 'package:flutter_app_nana_project/pages/page_qr.dart';
 import 'package:flutter_app_nana_project/pages/page_write.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +24,7 @@ class Home extends ConsumerWidget {
   Home({super.key});
 
   final router = GoRouter(
-    initialLocation: '/camera_control',
+    initialLocation: '/camera',
     routes: [
       GoRoute(path: '/start', builder: (context, state) => const PageStart()),
       GoRoute(path: "/terms", builder: (context, state) => const PageTerms()),
@@ -36,7 +36,7 @@ class Home extends ConsumerWidget {
         path: '/camera_control',
         builder: (context, state) => const PageCameraControl(),
       ),
-      GoRoute(path: '/camera', builder: (context, state) => const PageCamera()),
+      GoRoute(path: '/camera', builder: (context, state) => PageCamera()),
       GoRoute(
         path: '/camera_shot',
         builder: (context, state) => const PageCameraShot(),

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/page_terms/styles/colors.dart';
+import 'package:flutter_app_nana_project/pages/terms/styles/colors.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
 
 class SingleButton extends StatelessWidget {
