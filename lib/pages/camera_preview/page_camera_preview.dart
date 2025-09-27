@@ -16,6 +16,7 @@ class PageCameraPreview extends ConsumerStatefulWidget {
 
 class _PageCameraPreviewState extends ConsumerState<PageCameraPreview> {
   String? imageName;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -26,8 +27,20 @@ class _PageCameraPreviewState extends ConsumerState<PageCameraPreview> {
     }
   }
 
-  void push(BuildContext context) {
-    context.push('/write');
+  Future<void> push(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    if (context.mounted) {
+      await context.push('/write');
+    }
+
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   // 「もう一度撮る」ボタンの処理
@@ -72,51 +85,53 @@ class _PageCameraPreviewState extends ConsumerState<PageCameraPreview> {
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
       child: Center(
-        child: asyncImageData.when(
-          loading: () => const CupertinoActivityIndicator(radius: 20),
-          error: (error, stackTrace) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('画像の読み込みに失敗しました: $error'),
-              const SizedBox(height: 20),
-              ReTakeButton(onPressed: () => back(context)),
-            ],
-          ),
-          data: (imageData) {
-            if (imageData == null) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('画像が見つかりません'),
-                  const SizedBox(height: 20),
-                  ReTakeButton(onPressed: () => back(context)),
-                ],
-              );
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const SizedBox(height: 70),
-                Expanded(
-                  child: Center(
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: Image.memory(imageData, fit: BoxFit.contain),
-                    ),
-                  ),
-                ),
-                Row(
+        child: _isLoading
+            ? const CupertinoActivityIndicator(radius: 20)
+            : asyncImageData.when(
+                loading: () => const CupertinoActivityIndicator(radius: 20),
+                error: (error, stackTrace) => Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text('画像の読み込みに失敗しました: $error'),
+                    const SizedBox(height: 20),
                     ReTakeButton(onPressed: () => back(context)),
-                    NextButton(onPressed: () => push(context)),
                   ],
                 ),
-                const SizedBox(height: 100),
-              ],
-            );
-          },
-        ),
+                data: (imageData) {
+                  if (imageData == null) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('画像が見つかりません'),
+                        const SizedBox(height: 20),
+                        ReTakeButton(onPressed: () => back(context)),
+                      ],
+                    );
+                  }
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const SizedBox(height: 70),
+                      Expanded(
+                        child: Center(
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Image.memory(imageData, fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ReTakeButton(onPressed: () => back(context)),
+                          NextButton(onPressed: () => push(context)),
+                        ],
+                      ),
+                      const SizedBox(height: 100),
+                    ],
+                  );
+                },
+              ),
       ),
     );
   }
