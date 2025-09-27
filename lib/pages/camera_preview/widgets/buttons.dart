@@ -13,7 +13,7 @@ class ReTakeButton extends StatelessWidget {
       onPressed: onPressed,
       child: doubleButtonBuilder(
         "もう一度撮る",
-        "RETake!",
+        "ReTake!",
         ButtonColors.resetButtonBgColor,
         ButtonColors.resetButtonTextColor,
       ),

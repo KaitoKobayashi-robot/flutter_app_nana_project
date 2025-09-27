@@ -44,7 +44,7 @@ class Home extends ConsumerWidget {
       ),
       GoRoute(
         path: '/camera_preview',
-        builder: (context, state) => const PageCameraPreview(),
+        builder: (context, state) => PageCameraPreview(extra: state.extra),
       ),
       GoRoute(
         path: '/camera_waiting',
