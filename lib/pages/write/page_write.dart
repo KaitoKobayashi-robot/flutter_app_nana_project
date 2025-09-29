@@ -71,7 +71,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     final boudary =
         _completeImgKey.currentContext!.findRenderObject()
             as RenderRepaintBoundary;
-    final ui.Image image = await boudary.toImage(pixelRatio: 3.0);
+    final ui.Image image = await boudary.toImage(pixelRatio: imagescale);
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
     onProgress(0.25);
@@ -185,7 +185,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     );
 
     final image = Image.memory(
-      scale: imagescale,
+      // scale: imagescale,
       imageData,
       fit: BoxFit.contain,
     );
