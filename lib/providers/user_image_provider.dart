@@ -6,8 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 // UIで表示するための画像データを保持するプロバイダー
 final userImageProvider = StateProvider<Uint8List?>((ref) => null);
 
-// ファイル名に基づいて画像データを取得するプロバイダーファミリー
-final imageByNameProvider = FutureProvider.family<Uint8List?, String>((
+// 【変更】ファイル名に基づいて画像のダウンロードURLを取得するプロバイダーファミリー
+final imageUrlByNameProvider = FutureProvider.family<String?, String>((
   ref,
   imageName,
 ) async {
@@ -16,12 +16,10 @@ final imageByNameProvider = FutureProvider.family<Uint8List?, String>((
   }
   try {
     final imageRef = FirebaseStorage.instance.ref('user_images_raw/$imageName');
-    final imageData = await imageRef.getData();
-    // 取得したデータをUI用のプロバイダーにもセットする
-    ref.read(userImageProvider.notifier).state = imageData;
-    return imageData;
+    final downloadUrl = await imageRef.getDownloadURL();
+    return downloadUrl;
   } catch (e) {
-    debugPrint('Failed to get image by name "$imageName": $e');
+    debugPrint('Failed to get image URL by name "$imageName": $e');
     return null;
   }
 });
