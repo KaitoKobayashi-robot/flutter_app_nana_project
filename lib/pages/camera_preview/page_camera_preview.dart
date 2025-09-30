@@ -7,7 +7,6 @@ import '/providers/user_image_provider.dart';
 import 'dart:typed_data';
 import 'dart:async';
 
-// 【変更】StatefulWidgetからConsumerWidgetに変更
 class PageCameraPreview extends ConsumerWidget {
   final Object? extra;
   const PageCameraPreview({this.extra, super.key});
@@ -63,8 +62,6 @@ class PageCameraPreview extends ConsumerWidget {
       );
     }
 
-    // 【変更】新しく作成した imageBytesProvider を監視します
-    // これで画像取得までのすべての状態（ロード中、エラー、データ）を一括で管理できます
     final asyncImageBytes = ref.watch(imageBytesProvider(imageName));
 
     return CupertinoPageScaffold(

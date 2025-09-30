@@ -16,6 +16,8 @@ class PageCameraWaiting extends ConsumerStatefulWidget {
 class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
   late StreamSubscription<DocumentSnapshot> _subscription;
   bool _isNavigating = false;
+  // UIの状態を管理するための新しいState変数を追加
+  bool _isLoadingImage = false;
 
   @override
   void initState() {
@@ -28,8 +30,10 @@ class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
       if (snapshot.exists && !_isNavigating && mounted) {
         final data = snapshot.data() as Map<String, dynamic>;
         if (data['takePhoto'] == false && data['latestImageName'] != null) {
+          // 画像読み込みが開始されることをUIに通知
           setState(() {
             _isNavigating = true;
+            _isLoadingImage = true; // テキストを「読み込み中」に変更
           });
 
           final imageName = data['latestImageName'] as String;
@@ -64,8 +68,10 @@ class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
                   ],
                 ),
               );
+              // エラー発生時はStateをリセット
               setState(() {
-                _isNavigating = false; // Allow retry or further actions.
+                _isNavigating = false;
+                _isLoadingImage = false; // テキストを元に戻す
               });
             }
           }
@@ -82,17 +88,21 @@ class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
+    return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CupertinoActivityIndicator(radius: 40),
-            SizedBox(height: 40),
+            const CupertinoActivityIndicator(radius: 40),
+            const SizedBox(height: 40),
+            // _isLoadingImage の状態に応じて表示するテキストを変更
             Text(
-              '撮影中です...',
-              style: TextStyle(fontSize: 24, color: CupertinoColors.black),
+              _isLoadingImage ? '画像を読み込み中...' : '撮影中だよ！カメラを見てね！',
+              style: const TextStyle(
+                fontSize: 24,
+                color: CupertinoColors.black,
+              ),
             ),
           ],
         ),
