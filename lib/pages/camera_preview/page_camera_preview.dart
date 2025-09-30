@@ -5,48 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '/providers/user_image_provider.dart';
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'dart:async';
-
-// 【新設】画像名から画像のバイトデータを取得するProvider
-// このProviderがURLの取得と画像のダウンロードをまとめて行います。
-final imageBytesProvider = FutureProvider.autoDispose
-    .family<Uint8List?, String>((ref, imageName) async {
-      // まず画像URLを取得
-      final imageUrl = await ref.watch(
-        imageUrlByNameProvider(imageName).future,
-      );
-
-      if (imageUrl == null || imageUrl.isEmpty) {
-        return null; // URLがなければnullを返す
-      }
-
-      // NetworkImageを使って画像データをバイトに変換
-      final completer = Completer<Uint8List?>();
-      final imageProvider = NetworkImage(imageUrl);
-      final listener = ImageStreamListener(
-        (ImageInfo info, bool _) {
-          info.image.toByteData(format: ui.ImageByteFormat.png).then((
-            byteData,
-          ) {
-            completer.complete(byteData?.buffer.asUint8List());
-          });
-        },
-        onError: (exception, stackTrace) {
-          completer.completeError(exception, stackTrace);
-        },
-      );
-
-      final stream = imageProvider.resolve(const ImageConfiguration());
-      stream.addListener(listener);
-
-      // リスナーを適切に削除するために、Providerが破棄されるタイミングでクリーンアップ
-      ref.onDispose(() {
-        stream.removeListener(listener);
-      });
-
-      return completer.future;
-    });
 
 // 【変更】StatefulWidgetからConsumerWidgetに変更
 class PageCameraPreview extends ConsumerWidget {

@@ -3,16 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_app_nana_project/providers/user_image_provider.dart';
 
-class PageCameraWaiting extends StatefulWidget {
+class PageCameraWaiting extends ConsumerStatefulWidget {
   const PageCameraWaiting({super.key});
 
   @override
-  State<PageCameraWaiting> createState() => _PageCameraWaitingState();
+  ConsumerState<PageCameraWaiting> createState() => _PageCameraWaitingState();
 }
 
-class _PageCameraWaitingState extends State<PageCameraWaiting> {
+class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
   late StreamSubscription<DocumentSnapshot> _subscription;
+  bool _isNavigating = false;
 
   @override
   void initState() {
@@ -21,15 +24,50 @@ class _PageCameraWaitingState extends State<PageCameraWaiting> {
         .collection('camera')
         .doc('trigger');
 
-    _subscription = triggerDocRef.snapshots().listen((snapshot) {
-      if (snapshot.exists) {
+    _subscription = triggerDocRef.snapshots().listen((snapshot) async {
+      if (snapshot.exists && !_isNavigating && mounted) {
         final data = snapshot.data() as Map<String, dynamic>;
-        // takePhotoがfalseになり、かつlatestImageNameが存在する場合に遷移
         if (data['takePhoto'] == false && data['latestImageName'] != null) {
+          setState(() {
+            _isNavigating = true;
+          });
+
           final imageName = data['latestImageName'] as String;
-          if (mounted) {
-            // extraにファイル名を渡して画面遷移
-            context.pushReplacement('/camera_preview', extra: imageName);
+
+          try {
+            // Invalidate to ensure fresh data if this screen is revisited.
+            ref.invalidate(imageBytesProvider(imageName));
+            // Pre-fetch the image. The provider will cache the result.
+            await ref.read(imageBytesProvider(imageName).future);
+
+            if (mounted) {
+              context.pushReplacement('/camera_preview', extra: imageName);
+            }
+          } catch (e) {
+            if (mounted) {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  title: Text('Error'),
+                  content: Text('Failed to load image: $e'),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: Text('OK'),
+                      onPressed: () {
+                        context.pop();
+                        // Go back to the previous screen on error.
+                        if (context.canPop()) {
+                          context.pop();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              );
+              setState(() {
+                _isNavigating = false; // Allow retry or further actions.
+              });
+            }
           }
         }
       }
