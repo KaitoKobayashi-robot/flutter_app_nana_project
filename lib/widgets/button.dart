@@ -1,6 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/styles/button.dart';
 
+class Single {
+  static const double width = 430;
+  static const double height = 140;
+}
+
+class Double {
+  static const double width = 320;
+  static const double height = 100;
+}
+
 Widget singleButtonBuilder(
   String title,
   String subTitle,
@@ -8,8 +18,8 @@ Widget singleButtonBuilder(
   Color textColor,
 ) {
   return Container(
-    width: 430,
-    height: 140,
+    width: Single.width,
+    height: Single.height,
     decoration: buttonDecoration(boxColor),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -28,8 +38,8 @@ Widget doubleButtonBuilder(
   Color textColor,
 ) {
   return Container(
-    width: 320,
-    height: 100,
+    width: Double.width,
+    height: Double.height,
     decoration: buttonDecoration(boxColor),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,

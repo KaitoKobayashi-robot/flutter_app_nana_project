@@ -9,3 +9,8 @@ class ButtonColors {
 class CardColors {
   static const Color bgColor = MainColors.white;
 }
+
+class ErrorColors {
+  static const Color containerColor = MainColors.black;
+  static const Color textColor = MainColors.white;
+}
