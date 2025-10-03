@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app_nana_project/pages/camera/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/error.dart';
 import 'package:go_router/go_router.dart';
 
 class PageCamera extends StatelessWidget {
@@ -10,6 +11,9 @@ class PageCamera extends StatelessWidget {
   final triggerDocRef = FirebaseFirestore.instance
       .collection('camera')
       .doc('trigger');
+  final resourceDocRef = FirebaseFirestore.instance
+      .collection('camera')
+      .doc('resource');
 
   push(BuildContext context) {
     triggerDocRef.update({'showCamera': true});
@@ -28,7 +32,29 @@ class PageCamera extends StatelessWidget {
                 child: const Text(style: TextStyle(fontSize: 40), '撮影画面'),
               ),
             ),
-            SingleButton(onPressed: () => push(context)),
+            StreamBuilder<DocumentSnapshot>(
+              stream: resourceDocRef.snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CupertinoActivityIndicator();
+                }
+                if (snapshot.hasError) {
+                  return ErrorCard(message: 'Error: ${snapshot.error}');
+                }
+                if (!snapshot.hasData || !snapshot.data!.exists) {
+                  return const ErrorCard(message: 'データベースにデータがありません');
+                }
+
+                final data = snapshot.data!.data() as Map<String, dynamic>;
+                final bool isLocked = data['isLocked'] ?? false;
+
+                if (isLocked) {
+                  return SingleButton(onPressed: () => push(context));
+                } else {
+                  return ErrorCard(message: 'Webカメラが起動していません');
+                }
+              },
+            ),
             SizedBox(height: 100),
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/start/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/pages/start/widgets/cards.dart';
-import 'package:flutter_app_nana_project/pages/start/widgets/error.dart';
+import 'package:flutter_app_nana_project/widgets/error.dart';
 import 'package:flutter_app_nana_project/pages/start/widgets/logo.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:go_router/go_router.dart';
@@ -64,7 +64,7 @@ class _PageStartState extends State<PageStart> {
               SingleButton(onPressed: () => push(context))
             // Wi-Fiに接続されていない場合
             else
-              const ErrorWiFi(),
+              const ErrorCard(message: '🛜 Wi-Fiに接続してください 🛜'),
             const SizedBox(height: 100),
           ],
         ),

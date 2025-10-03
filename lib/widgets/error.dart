@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/start/styles/colors.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
 
-class ErrorWiFi extends StatelessWidget {
-  const ErrorWiFi({super.key});
+class ErrorCard extends StatelessWidget {
+  final String message;
+  const ErrorCard({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ErrorWiFi extends StatelessWidget {
       decoration: BoxDecoration(color: ErrorColors.containerColor),
       child: Center(
         child: Text(
-          '🛜 Wi-Fiに接続してください 🛜',
+          message,
           style: TextStyle(
             color: CupertinoColors.systemRed,
             fontSize: 25,
