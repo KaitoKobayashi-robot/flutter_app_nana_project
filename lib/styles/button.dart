@@ -21,6 +21,7 @@ const double doubleButtonTextSize = 20;
 
 TextStyle singleButtonTitleStyle(Color color) {
   return TextStyle(
+    fontFamily: 'ZenMaruGothic',
     color: color,
     fontSize: singleButtonTextSize,
     fontWeight: FontWeight.bold,
@@ -29,6 +30,7 @@ TextStyle singleButtonTitleStyle(Color color) {
 
 TextStyle singleButtonSubTitleStyle(Color color) {
   return TextStyle(
+    fontFamily: 'ZenMaruGothic',
     color: color,
     fontSize: singleButtonTextSize - offsetTextSize,
     fontWeight: FontWeight.bold,
@@ -37,6 +39,7 @@ TextStyle singleButtonSubTitleStyle(Color color) {
 
 TextStyle doubleButtonTitleStyle(Color color) {
   return TextStyle(
+    fontFamily: 'ZenMaruGothic',
     color: color,
     fontSize: doubleButtonTextSize,
     fontWeight: FontWeight.bold,
@@ -45,6 +48,7 @@ TextStyle doubleButtonTitleStyle(Color color) {
 
 TextStyle doubleButtonSubTitleStyle(Color color) {
   return TextStyle(
+    fontFamily: 'ZenMaruGothic',
     color: color,
     fontSize: doubleButtonTextSize - offsetTextSize,
     fontWeight: FontWeight.bold,
