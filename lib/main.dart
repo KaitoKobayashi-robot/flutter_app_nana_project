@@ -60,7 +60,10 @@ class Home extends ConsumerWidget {
     return CupertinoApp.router(
       theme: CupertinoThemeData(
         textTheme: const CupertinoTextThemeData(
-          textStyle: TextStyle(fontFamily: 'ZenMaruGothic'),
+          textStyle: TextStyle(
+            fontFamily: 'ZenMaruGothic',
+            color: CupertinoColors.black,
+          ),
         ),
       ),
       debugShowCheckedModeBanner: false,
