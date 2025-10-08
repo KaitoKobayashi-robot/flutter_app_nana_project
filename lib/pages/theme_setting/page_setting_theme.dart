@@ -3,6 +3,7 @@ import 'package:flutter_app_nana_project/pages/theme_setting/widgets/theme_butto
 import 'package:flutter_app_nana_project/pages/theme_setting/widgets/title.dart';
 import 'package:flutter_app_nana_project/providers/theme_provider.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,11 +17,11 @@ class PageSettingTheme extends ConsumerStatefulWidget {
 }
 
 class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
-  push(BuildContext context) {
+  push() {
     context.push('/camera');
   }
 
-  reset(WidgetRef ref) {
+  reset() {
     ref.read(randomSelectorProvider.notifier).startAutoSelect();
     debugPrint("RESET!");
   }
@@ -58,12 +59,19 @@ class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ResetButton(onPressed: isLoading ? null : () => reset(ref)),
-                NextButton(onPressed: isLoading ? null : () => push(context)),
-              ],
+            Container(
+              alignment: Alignment.center,
+              width: ButtonArea.width,
+              height: ButtonArea.height,
+              child: !isLoading
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ResetButton(onPressed: () => reset()),
+                        NextButton(onPressed: () => push()),
+                      ],
+                    )
+                  : SizedBox(),
             ),
             SizedBox(height: 70),
           ],

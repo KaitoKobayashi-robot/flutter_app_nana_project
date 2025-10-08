@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app_nana_project/pages/camera/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/pages/camera/widgets/camera_graphic.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:flutter_app_nana_project/widgets/error.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
@@ -32,28 +33,33 @@ class PageCamera extends StatelessWidget {
             SizedBox(height: 70),
             Logo(height: 100),
             Expanded(child: Center(child: CameraGraphic())),
-            StreamBuilder<DocumentSnapshot>(
-              stream: resourceDocRef.snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CupertinoActivityIndicator();
-                }
-                if (snapshot.hasError) {
-                  return ErrorCard(message: 'Error: ${snapshot.error}');
-                }
-                if (!snapshot.hasData || !snapshot.data!.exists) {
-                  return const ErrorCard(message: 'データベースにデータがありません');
-                }
+            Container(
+              alignment: Alignment.center,
+              width: ButtonArea.width,
+              height: ButtonArea.height,
+              child: StreamBuilder<DocumentSnapshot>(
+                stream: resourceDocRef.snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CupertinoActivityIndicator();
+                  }
+                  if (snapshot.hasError) {
+                    return ErrorCard(message: 'Error: ${snapshot.error}');
+                  }
+                  if (!snapshot.hasData || !snapshot.data!.exists) {
+                    return const ErrorCard(message: 'データベースにデータがありません');
+                  }
 
-                final data = snapshot.data!.data() as Map<String, dynamic>;
-                final bool isLocked = data['isLocked'] ?? false;
+                  final data = snapshot.data!.data() as Map<String, dynamic>;
+                  final bool isLocked = data['isLocked'] ?? false;
 
-                if (isLocked) {
-                  return SingleButton(onPressed: () => push(context));
-                } else {
-                  return ErrorCard(message: 'Webカメラが起動していません');
-                }
-              },
+                  if (isLocked) {
+                    return SingleButton(onPressed: () => push(context));
+                  } else {
+                    return ErrorCard(message: 'Webカメラが起動していません');
+                  }
+                },
+              ),
             ),
             SizedBox(height: 70),
           ],

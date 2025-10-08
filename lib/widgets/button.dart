@@ -11,6 +11,12 @@ class Double {
   static const double height = 110;
 }
 
+class ButtonArea {
+  static const double width = double.infinity;
+  static const double height = 200;
+  static const double spacing = 20;
+}
+
 Widget singleButtonBuilder(
   String title,
   String subTitle,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/theme/widgets/theme_buttons.dart';
+import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_app_nana_project/pages/theme/widgets/title.dart';
@@ -34,7 +35,12 @@ class PageTheme extends StatelessWidget {
                 ),
               ),
             ),
-            SelectButton(onPressed: () => push(context)),
+            Container(
+              alignment: Alignment.center,
+              width: ButtonArea.width,
+              height: ButtonArea.height,
+              child: SelectButton(onPressed: () => push(context)),
+            ),
             SizedBox(height: 70),
           ],
         ),

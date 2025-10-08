@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:async';
 import 'package:flutter_app_nana_project/pages/start/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/pages/start/widgets/cards.dart';
 import 'package:flutter_app_nana_project/widgets/error.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
-import 'package:go_router/go_router.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'dart:async';
+import 'package:flutter_app_nana_project/widgets/button.dart';
 
 class PageStart extends StatefulWidget {
   const PageStart({super.key});
@@ -59,12 +60,14 @@ class _PageStartState extends State<PageStart> {
             const SizedBox(height: 100),
             Logo(height: 150),
             const Expanded(child: Center(child: Cards())),
-            // Wi-Fiに接続されている場合
-            if (_isWifiConnected)
-              SingleButton(onPressed: () => push(context))
-            // Wi-Fiに接続されていない場合
-            else
-              const ErrorCard(message: '🛜 Wi-Fiに接続してください 🛜'),
+            Container(
+              alignment: Alignment.center,
+              width: ButtonArea.width,
+              height: ButtonArea.height,
+              child: _isWifiConnected
+                  ? SingleButton(onPressed: () => push(context))
+                  : const ErrorCard(message: '🛜 Wi-Fiに接続してください 🛜'),
+            ),
             const SizedBox(height: 70),
           ],
         ),
