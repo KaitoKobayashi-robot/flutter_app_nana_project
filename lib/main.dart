@@ -58,6 +58,11 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoApp.router(
+      theme: CupertinoThemeData(
+        textTheme: const CupertinoTextThemeData(
+          textStyle: TextStyle(fontFamily: 'ZenMaruGothic'),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         DefaultCupertinoLocalizations.delegate,
