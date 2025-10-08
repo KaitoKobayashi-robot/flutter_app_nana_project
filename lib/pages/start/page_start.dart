@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/start/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/pages/start/widgets/cards.dart';
 import 'package:flutter_app_nana_project/widgets/error.dart';
-import 'package:flutter_app_nana_project/pages/start/widgets/logo.dart';
+import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -57,7 +57,7 @@ class _PageStartState extends State<PageStart> {
         child: Column(
           children: [
             const SizedBox(height: 100),
-            Logo(),
+            Logo(height: 150),
             const Expanded(child: Center(child: Cards())),
             // Wi-Fiに接続されている場合
             if (_isWifiConnected)
@@ -65,7 +65,7 @@ class _PageStartState extends State<PageStart> {
             // Wi-Fiに接続されていない場合
             else
               const ErrorCard(message: '🛜 Wi-Fiに接続してください 🛜'),
-            const SizedBox(height: 100),
+            const SizedBox(height: 70),
           ],
         ),
       ),

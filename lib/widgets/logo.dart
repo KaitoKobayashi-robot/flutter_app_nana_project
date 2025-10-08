@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Logo extends StatelessWidget {
-  const Logo({super.key});
+  final double? height;
+  const Logo({super.key, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,7 @@ class Logo extends StatelessWidget {
     final Widget svg = SvgPicture.asset(
       assetName,
       semanticsLabel: 'Homete LOGO',
-      height: 200,
+      height: height ?? 150,
     );
     return svg;
   }
