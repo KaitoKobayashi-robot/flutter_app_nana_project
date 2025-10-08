@@ -3,22 +3,11 @@ import 'package:flutter_app_nana_project/styles/colors.dart';
 
 /* Button Container Design */
 
-BoxShadow buttonShadow = BoxShadow(
-  color: CupertinoColors.black.withAlpha(66),
-  offset: Offset(0, 10),
-  blurRadius: 3,
-  blurStyle: BlurStyle.normal,
-);
-
 Decoration buttonDecoration(Color color) {
   return BoxDecoration(
     color: color,
-    border: Border.all(
-      width: 3,
-      color: color == MainColors.black ? MainColors.white : MainColors.black,
-    ),
-    borderRadius: BorderRadius.circular(70),
-    boxShadow: [buttonShadow],
+    border: Border.all(width: 3, color: MainColors.white),
+    borderRadius: BorderRadius.circular(20),
   );
 }
 
@@ -30,18 +19,11 @@ const double offsetTextSize = 10;
 const double singleButtonTextSize = 35;
 const double doubleButtonTextSize = 20;
 
-Shadow textShadow = Shadow(
-  color: CupertinoColors.black.withAlpha(66),
-  offset: Offset(0, 3),
-  blurRadius: 3,
-);
-
 TextStyle singleButtonTitleStyle(Color color) {
   return TextStyle(
     color: color,
     fontSize: singleButtonTextSize,
     fontWeight: FontWeight.bold,
-    shadows: [textShadow],
   );
 }
 
@@ -50,7 +32,6 @@ TextStyle singleButtonSubTitleStyle(Color color) {
     color: color,
     fontSize: singleButtonTextSize - offsetTextSize,
     fontWeight: FontWeight.bold,
-    shadows: [textShadow],
   );
 }
 
@@ -59,7 +40,6 @@ TextStyle doubleButtonTitleStyle(Color color) {
     color: color,
     fontSize: doubleButtonTextSize,
     fontWeight: FontWeight.bold,
-    shadows: [textShadow],
   );
 }
 
@@ -68,6 +48,5 @@ TextStyle doubleButtonSubTitleStyle(Color color) {
     color: color,
     fontSize: doubleButtonTextSize - offsetTextSize,
     fontWeight: FontWeight.bold,
-    shadows: [textShadow],
   );
 }
