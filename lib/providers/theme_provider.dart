@@ -41,7 +41,7 @@ class RandomSelectNotifier extends StateNotifier<ThemeState> {
 
     state = state.copyWith(isLoading: true);
 
-    timer = Timer.periodic(Duration(microseconds: 100), (Timer t) {
+    timer = Timer.periodic(Duration(milliseconds: 20), (Timer t) {
       selectRandomItem();
     });
 
