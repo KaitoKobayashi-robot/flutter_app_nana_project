@@ -12,8 +12,8 @@ class ResetButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       child: doubleButtonBuilder(
-        "選びなおす",
-        "RESET!",
+        "もう一度えらぶ",
+        "reselection",
         ButtonColors.resetButtonBgColor,
         ButtonColors.resetButtonTextColor,
       ),
@@ -32,7 +32,7 @@ class NextButton extends StatelessWidget {
       onPressed: onPressed,
       child: doubleButtonBuilder(
         "次へ",
-        "NEXT",
+        "next",
         ButtonColors.nextButtonBgColor,
         ButtonColors.nextButtonTextColor,
       ),

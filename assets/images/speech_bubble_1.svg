@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="_レイヤー_1" data-name="レイヤー_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 841.89 595.28">
+<svg id="_レイヤー_1" data-name="レイヤー_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="20 100 800 400">
   <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
-  <defs>
-    <style>
-      .st0 {
-        fill: #fff;
-        stroke: #231815;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 4.34px;
-      }
-    </style>
-  </defs>
-  <path class="st0" d="M97.89,448.95h301.64l18.37,48.22,18.37-48.22h307.73c8.71,0,15.77-8.34,15.77-18.62V146.43c0-10.28-7.06-18.62-15.77-18.62H97.89c-8.71,0-15.77,8.34-15.77,18.62v283.9c0,10.28,7.06,18.62,15.77,18.62Z"/>
+  <path fill="#fff" stroke="#231815" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.34px" d="M97.89,448.95h301.64l18.37,48.22,18.37-48.22h307.73c8.71,0,15.77-8.34,15.77-18.62V146.43c0-10.28-7.06-18.62-15.77-18.62H97.89c-8.71,0-15.77,8.34-15.77,18.62v283.9c0,10.28,7.06,18.62,15.77,18.62Z"/>
 </svg>

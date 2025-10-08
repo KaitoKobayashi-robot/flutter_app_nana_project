@@ -7,7 +7,7 @@ Decoration buttonDecoration(Color color) {
   return BoxDecoration(
     color: color,
     border: Border.all(width: 3, color: MainColors.white),
-    borderRadius: BorderRadius.circular(20),
+    borderRadius: BorderRadius.circular(10),
   );
 }
 
@@ -15,9 +15,10 @@ Decoration buttonDecoration(Color color) {
 
 /* Button Text Design */
 
-const double offsetTextSize = 10;
+const double offsetSingleTextSize = 10;
+const double offsetDoubleTextSize = 5;
 const double singleButtonTextSize = 35;
-const double doubleButtonTextSize = 20;
+const double doubleButtonTextSize = 25;
 
 TextStyle singleButtonTitleStyle(Color color) {
   return TextStyle(
@@ -32,7 +33,7 @@ TextStyle singleButtonSubTitleStyle(Color color) {
   return TextStyle(
     fontFamily: 'ZenMaruGothic',
     color: color,
-    fontSize: singleButtonTextSize - offsetTextSize,
+    fontSize: singleButtonTextSize - offsetSingleTextSize,
     fontWeight: FontWeight.bold,
   );
 }
@@ -50,7 +51,7 @@ TextStyle doubleButtonSubTitleStyle(Color color) {
   return TextStyle(
     fontFamily: 'ZenMaruGothic',
     color: color,
-    fontSize: doubleButtonTextSize - offsetTextSize,
+    fontSize: doubleButtonTextSize - offsetDoubleTextSize,
     fontWeight: FontWeight.bold,
   );
 }

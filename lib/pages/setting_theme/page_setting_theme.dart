@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/setting_theme/widgets/theme_buttons.dart';
+import 'package:flutter_app_nana_project/pages/setting_theme/widgets/title.dart';
 import 'package:flutter_app_nana_project/providers/theme_provider.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_app_nana_project/pages/setting_theme/widgets/theme_area.dart';
 
 class PageSettingTheme extends ConsumerWidget {
   const PageSettingTheme({super.key});
@@ -26,11 +29,18 @@ class PageSettingTheme extends ConsumerWidget {
       child: Center(
         child: Column(
           children: [
-            SizedBox(height: 100),
-            const Text('お題選択画面'),
+            SizedBox(height: 70),
+            Logo(height: 100),
             Expanded(
               child: Center(
-                child: Text(selectedData, style: TextStyle(fontSize: 40)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TitleWidget(),
+                    SizedBox(height: 100),
+                    ThemeArea(selectedData: selectedData),
+                  ],
+                ),
               ),
             ),
             Row(
@@ -40,7 +50,7 @@ class PageSettingTheme extends ConsumerWidget {
                 NextButton(onPressed: () => push(context)),
               ],
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 70),
           ],
         ),
       ),

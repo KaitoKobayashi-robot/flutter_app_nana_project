@@ -3,12 +3,12 @@ import 'package:flutter_app_nana_project/styles/button.dart';
 
 class Single {
   static const double width = 430;
-  static const double height = 140;
+  static const double height = 130;
 }
 
 class Double {
   static const double width = 320;
-  static const double height = 100;
+  static const double height = 110;
 }
 
 Widget singleButtonBuilder(
