@@ -4,14 +4,17 @@ class Terms extends StatelessWidget {
   Terms({super.key});
 
   final title = Container(
-    child: Text("【 ご利用にあたって 】", style: TextStyle(fontSize: 50)),
+    child: Text(
+      "【 ご利用にあたって 】",
+      style: TextStyle(fontSize: 50, fontWeight: FontWeight.w500),
+    ),
   );
 
   final dedcription = Container(
     margin: EdgeInsets.fromLTRB(0, 100, 0, 50),
     child: Text(
       "このアプリで撮影, 入力された内容は、卒業制作展示\nの一環として会場内スクリーンに上映, 表示されます。",
-      style: TextStyle(fontSize: 30),
+      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
     ),
   );
 
@@ -25,7 +28,10 @@ class Terms extends StatelessWidget {
   articleBuilder(int index) {
     return Container(
       margin: EdgeInsets.all(20),
-      child: Text("・ ${articlesList[index]}", style: TextStyle(fontSize: 20)),
+      child: Text(
+        "・ ${articlesList[index]}",
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+      ),
     );
   }
 
