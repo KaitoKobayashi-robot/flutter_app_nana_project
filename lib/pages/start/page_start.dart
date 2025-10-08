@@ -56,7 +56,7 @@ class _PageStartState extends State<PageStart> {
       child: Center(
         child: Column(
           children: [
-            const SizedBox(height: 150),
+            const SizedBox(height: 50),
             Logo(),
             const Expanded(child: Center(child: Cards())),
             // Wi-Fiに接続されている場合
