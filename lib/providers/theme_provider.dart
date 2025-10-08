@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:math';
+import 'dart:async';
 
 const List<String> allThemes = [
   'かわいくほめて！',
@@ -19,6 +20,23 @@ class RandomSelectNotifier extends StateNotifier<String> {
     final random = Random();
     final randomIndex = random.nextInt(allThemes.length);
     state = allThemes[randomIndex];
+  }
+
+  Timer? timer;
+  void startAutoSelect() {
+    if (timer?.isActive ?? false) return;
+    timer = Timer.periodic(Duration(microseconds: 100), (Timer t) {
+      selectRandomItem();
+    });
+    Future.delayed(Duration(seconds: 1), () {
+      timer?.cancel();
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 }
 

@@ -8,20 +8,33 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_app_nana_project/pages/setting_theme/widgets/theme_area.dart';
 
-class PageSettingTheme extends ConsumerWidget {
+class PageSettingTheme extends ConsumerStatefulWidget {
   const PageSettingTheme({super.key});
 
+  @override
+  ConsumerState<PageSettingTheme> createState() => _PageSettingThemeState();
+}
+
+class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
   push(BuildContext context) {
     context.push('/camera');
   }
 
   reset(WidgetRef ref) {
-    ref.read(randomSelectorProvider.notifier).selectRandomItem();
+    ref.read(randomSelectorProvider.notifier).startAutoSelect();
     debugPrint("RESET!");
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(randomSelectorProvider.notifier).startAutoSelect();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selectedData = ref.watch(randomSelectorProvider);
 
     return CupertinoPageScaffold(
