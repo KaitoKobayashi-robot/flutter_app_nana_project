@@ -26,7 +26,7 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
         child: child,
       );
     },
-    transitionDuration: const Duration(milliseconds: 350), // アニメーション時間を指定
+    transitionDuration: const Duration(milliseconds: 200),
   );
 }
 
@@ -41,27 +41,45 @@ final router = GoRouter(
         child: const PageStart(),
       ),
     ),
-    GoRoute(path: "/terms", builder: (context, state) => const PageTerms()),
+    GoRoute(
+      path: "/terms",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const PageTerms(),
+      ),
+    ),
     GoRoute(
       path: '/setting_theme',
-      builder: (context, state) => const PageSettingTheme(),
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const PageSettingTheme(),
+      ),
+    ),
+    GoRoute(
+      path: '/camera',
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: PageCamera(),
+      ),
     ),
     GoRoute(
       path: '/camera_control',
       builder: (context, state) => const PageCameraControl(),
     ),
-    GoRoute(path: '/camera', builder: (context, state) => PageCamera()),
     GoRoute(
       path: '/camera_shot',
       builder: (context, state) => const PageCameraShot(),
     ),
     GoRoute(
-      path: '/camera_preview',
-      builder: (context, state) => PageCameraPreview(extra: state.extra),
-    ),
-    GoRoute(
       path: '/camera_waiting',
       builder: (context, state) => const PageCameraWaiting(),
+    ),
+    GoRoute(
+      path: '/camera_preview',
+      builder: (context, state) => PageCameraPreview(extra: state.extra),
     ),
     GoRoute(path: '/write', builder: (context, state) => PageWrite()),
     GoRoute(path: '/QR', builder: (context, state) => const PageQR()),
