@@ -14,7 +14,7 @@ class Cards extends StatelessWidget {
         border: Border.all(width: 3),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Center(child: Text("手順 $index")),
+      child: Center(child: Text("手順 $index", style: TextStyle(fontSize: 30))),
     );
   }
 
