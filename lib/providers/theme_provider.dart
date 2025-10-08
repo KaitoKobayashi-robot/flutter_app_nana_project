@@ -11,25 +11,43 @@ const List<String> allThemes = [
   '心を込めてほめて！',
 ];
 
-class RandomSelectNotifier extends StateNotifier<String> {
-  RandomSelectNotifier() : super('') {
+class ThemeState {
+  final String selectedTheme;
+  final bool isLoading;
+  const ThemeState({this.selectedTheme = '', this.isLoading = false});
+
+  ThemeState copyWith({String? selectedTheme, bool? isLoading}) {
+    return ThemeState(
+      selectedTheme: selectedTheme ?? this.selectedTheme,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+}
+
+class RandomSelectNotifier extends StateNotifier<ThemeState> {
+  RandomSelectNotifier() : super(const ThemeState()) {
     selectRandomItem();
   }
 
   void selectRandomItem() {
     final random = Random();
     final randomIndex = random.nextInt(allThemes.length);
-    state = allThemes[randomIndex];
+    state = state.copyWith(selectedTheme: allThemes[randomIndex]);
   }
 
   Timer? timer;
   void startAutoSelect() {
-    if (timer?.isActive ?? false) return;
+    if (state.isLoading) return;
+
+    state = state.copyWith(isLoading: true);
+
     timer = Timer.periodic(Duration(microseconds: 100), (Timer t) {
       selectRandomItem();
     });
+
     Future.delayed(Duration(seconds: 1), () {
       timer?.cancel();
+      state = state.copyWith(isLoading: false);
     });
   }
 
@@ -41,6 +59,6 @@ class RandomSelectNotifier extends StateNotifier<String> {
 }
 
 final randomSelectorProvider =
-    StateNotifierProvider<RandomSelectNotifier, String>(
+    StateNotifierProvider<RandomSelectNotifier, ThemeState>(
       (ref) => RandomSelectNotifier(),
     );

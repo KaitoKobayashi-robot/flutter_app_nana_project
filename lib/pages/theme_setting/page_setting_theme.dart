@@ -35,7 +35,9 @@ class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedData = ref.watch(randomSelectorProvider);
+    final themeState = ref.watch(randomSelectorProvider);
+    final selectedData = themeState.selectedTheme;
+    final isLoading = themeState.isLoading;
 
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
@@ -59,8 +61,8 @@ class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ResetButton(onPressed: () => reset(ref)),
-                NextButton(onPressed: () => push(context)),
+                ResetButton(onPressed: isLoading ? null : () => reset(ref)),
+                NextButton(onPressed: isLoading ? null : () => push(context)),
               ],
             ),
             SizedBox(height: 70),
