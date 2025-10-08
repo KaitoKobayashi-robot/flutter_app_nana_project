@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
-import 'package:flutter_app_nana_project/pages/setting_theme/styles/colors.dart';
+import 'package:flutter_app_nana_project/pages/theme_setting/styles/colors.dart';
 
 class ResetButton extends StatelessWidget {
   const ResetButton({super.key, this.onPressed});

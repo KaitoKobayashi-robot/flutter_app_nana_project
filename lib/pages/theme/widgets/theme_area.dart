@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/setting_theme/widgets/speech_bubble.dart';
+import 'package:flutter_app_nana_project/pages/theme/widgets/speech_bubble.dart';
 
 class ThemeArea extends StatelessWidget {
   final String? selectedData;

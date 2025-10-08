@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/setting_theme/widgets/theme_buttons.dart';
-import 'package:flutter_app_nana_project/pages/setting_theme/widgets/title.dart';
+import 'package:flutter_app_nana_project/pages/theme_setting/widgets/theme_buttons.dart';
+import 'package:flutter_app_nana_project/pages/theme_setting/widgets/title.dart';
 import 'package:flutter_app_nana_project/providers/theme_provider.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_app_nana_project/pages/setting_theme/widgets/theme_area.dart';
+import 'package:flutter_app_nana_project/pages/theme_setting/widgets/theme_area.dart';
 
 class PageSettingTheme extends ConsumerStatefulWidget {
   const PageSettingTheme({super.key});

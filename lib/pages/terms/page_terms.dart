@@ -9,7 +9,7 @@ class PageTerms extends StatelessWidget {
   const PageTerms({super.key});
 
   push(BuildContext context) {
-    context.push('/setting_theme');
+    context.push('/theme');
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
-import 'package:flutter_app_nana_project/pages/setting_theme/styles/colors.dart';
+import 'package:flutter_app_nana_project/pages/camera_preview/styles/colors.dart';
 
 class ReTakeButton extends StatelessWidget {
   const ReTakeButton({super.key, this.onPressed});
@@ -14,8 +14,8 @@ class ReTakeButton extends StatelessWidget {
       child: doubleButtonBuilder(
         "もう一度撮る",
         "ReTake!",
-        ButtonColors.resetButtonBgColor,
-        ButtonColors.resetButtonTextColor,
+        ButtonColors.reTakeButtonBgColor,
+        ButtonColors.reTakeButtonTextColor,
       ),
     );
   }
