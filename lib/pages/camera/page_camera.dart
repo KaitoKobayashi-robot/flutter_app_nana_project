@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app_nana_project/pages/camera/widgets/buttons.dart';
+import 'package:flutter_app_nana_project/pages/camera/widgets/camera_graphic.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_app_nana_project/widgets/error.dart';
+import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 
 class PageCamera extends StatelessWidget {
@@ -27,11 +29,9 @@ class PageCamera extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Expanded(
-              child: Center(
-                child: const Text(style: TextStyle(fontSize: 40), '撮影画面'),
-              ),
-            ),
+            SizedBox(height: 70),
+            Logo(height: 100),
+            Expanded(child: Center(child: CameraGraphic())),
             StreamBuilder<DocumentSnapshot>(
               stream: resourceDocRef.snapshots(),
               builder: (context, snapshot) {
@@ -55,7 +55,7 @@ class PageCamera extends StatelessWidget {
                 }
               },
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 70),
           ],
         ),
       ),

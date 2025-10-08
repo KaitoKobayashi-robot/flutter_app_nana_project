@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,7 +22,7 @@ class Home extends ConsumerWidget {
         textTheme: const CupertinoTextThemeData(
           textStyle: TextStyle(
             fontFamily: 'ZenMaruGothic',
-            color: CupertinoColors.black,
+            color: MainColors.black,
           ),
         ),
       ),

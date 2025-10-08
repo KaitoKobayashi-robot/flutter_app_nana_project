@@ -12,8 +12,8 @@ class SingleButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       child: singleButtonBuilder(
-        '撮影をはじめる',
-        'Start!',
+        '撮影する',
+        'start',
         ButtonColors.readyButtonBgColor,
         ButtonColors.readyButtonTextColor,
       ),

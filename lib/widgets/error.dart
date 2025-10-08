@@ -11,7 +11,10 @@ class ErrorCard extends StatelessWidget {
     return Container(
       height: Single.height,
       width: Single.width,
-      decoration: BoxDecoration(color: ErrorColors.containerColor),
+      decoration: BoxDecoration(
+        color: ErrorColors.containerColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Center(
         child: Text(
           message,
