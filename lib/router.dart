@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:animations/animations.dart';
 import 'package:flutter_app_nana_project/pages/camera_control/page_camera_control.dart';
 import 'package:flutter_app_nana_project/pages/camera_waiting/page_camera_waiting.dart';
 import 'package:flutter_app_nana_project/pages/theme_setting/page_setting_theme.dart';

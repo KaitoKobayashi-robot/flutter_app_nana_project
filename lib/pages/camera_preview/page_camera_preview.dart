@@ -30,7 +30,6 @@ class PageCameraPreview extends ConsumerWidget {
 
     if (context.mounted) {
       context.pop();
-      context.pop();
     }
   }
 
