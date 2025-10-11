@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/providers/theme_provider.dart';
-import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/pages/camera_preview/styles/ratio.dart';
+import 'package:flutter_app_nana_project/pages/camera_preview/widgets/theme_box.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,38 +11,29 @@ class ImageArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeState = ref.watch(randomSelectorProvider);
-    final theme = themeState.selectedTheme;
+    final mediaWidth = MediaQuery.of(context).size.width;
+
     const String assetName = 'assets/images/speech_bubble_2.svg';
     final Widget svg = SvgPicture.asset(
-      width: 660,
+      width: mediaWidth * Ratio.widthRatio,
       assetName,
       semanticsLabel: 'Speech Bubble 2',
     );
 
-    return Stack(
-      alignment: Alignment.topCenter,
+    return Column(
       children: [
-        Column(
+        ThemeBox(),
+        Stack(
+          alignment: Alignment.center,
           children: [
-            Container(
-              height: 80,
-              width: 660,
-              decoration: BoxDecoration(
-                color: Color(0xffe3ca49),
-                border: BoxBorder.all(color: MainColors.black, width: 3),
-              ),
-              child: Center(
-                child: Text(
-                  theme,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
+            Image.memory(
+              imageBytes,
+              fit: BoxFit.contain,
+              width: mediaWidth * Ratio.widthRatio,
             ),
-            Expanded(child: Image.memory(imageBytes, fit: BoxFit.contain)),
+            Positioned(bottom: 0, child: svg),
           ],
         ),
-        Align(alignment: Alignment.bottomCenter, child: svg),
       ],
     );
   }
