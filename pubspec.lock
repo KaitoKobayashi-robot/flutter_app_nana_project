@@ -722,6 +722,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  svg_provider:
+    dependency: "direct main"
+    description:
+      name: svg_provider
+      sha256: c9d5c2beb52bef166b1105609ddf8e22e67b9ad18117b00fee36d71516498bc2
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   term_glyph:
     dependency: transitive
     description:
