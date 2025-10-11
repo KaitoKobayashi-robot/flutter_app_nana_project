@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/providers/percent_indicator_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 
 progressIndicatorBuilder(BuildContext context, WidgetRef ref) {
   return Center(
     child: CircularPercentIndicator(
       percent: ref.watch(uploadProgressProvider),
       backgroundColor: CupertinoColors.inactiveGray,
-      progressColor: Color.fromARGB(255, 253, 141, 255),
+      progressColor: MainColors.mainColor,
       radius: 200.0,
       lineWidth: 30,
       center: Center(
@@ -18,17 +19,18 @@ progressIndicatorBuilder(BuildContext context, WidgetRef ref) {
             Text(
               '${(ref.watch(uploadProgressProvider) * 100).toInt()}%',
               style: TextStyle(
+                fontFamily: "ZenMaruGothic",
                 fontSize: 30,
-                color: Color.fromARGB(255, 253, 141, 255),
-                // fontWeight: FontWeight.bold,
+                color: MainColors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               'COMPLETED',
               style: TextStyle(
                 fontSize: 30,
-                color: Color.fromARGB(255, 253, 141, 255),
-                // fontWeight: FontWeight.bold,
+                color: MainColors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
