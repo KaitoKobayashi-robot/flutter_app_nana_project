@@ -12,8 +12,8 @@ class ReTakeButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       child: doubleButtonBuilder(
-        "もう一度撮る",
-        "ReTake!",
+        "再撮影する",
+        "retake",
         ButtonColors.reTakeButtonBgColor,
         ButtonColors.reTakeButtonTextColor,
       ),
@@ -32,7 +32,7 @@ class NextButton extends StatelessWidget {
       onPressed: onPressed,
       child: doubleButtonBuilder(
         "次へ",
-        "NEXT",
+        "next",
         ButtonColors.nextButtonBgColor,
         ButtonColors.nextButtonTextColor,
       ),

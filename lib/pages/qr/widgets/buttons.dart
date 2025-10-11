@@ -13,7 +13,7 @@ class SingleButton extends StatelessWidget {
       onPressed: onPressed,
       child: singleButtonBuilder(
         '最初に戻る',
-        'Back',
+        'next',
         ButtonColors.buttonBgColor,
         ButtonColors.buttonTextColor,
       ),
