@@ -13,7 +13,7 @@ class Double {
 
 class ButtonArea {
   static const double width = double.infinity;
-  static const double height = 200;
+  static const double height = 250;
   static const double spacing = 20;
 }
 

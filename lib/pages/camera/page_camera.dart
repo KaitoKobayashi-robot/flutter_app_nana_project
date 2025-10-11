@@ -35,7 +35,6 @@ class PageCamera extends StatelessWidget {
               height: ButtonArea.height,
               child: SingleButton(onPressed: () => push(context)),
             ),
-            SizedBox(height: 70),
           ],
         ),
       ),

@@ -68,7 +68,6 @@ class _PageStartState extends State<PageStart> {
                   ? SingleButton(onPressed: () => push(context))
                   : const ErrorCard(message: '🛜 Wi-Fiに接続してください 🛜'),
             ),
-            const SizedBox(height: 70),
           ],
         ),
       ),

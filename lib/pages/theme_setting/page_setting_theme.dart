@@ -73,7 +73,6 @@ class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
                     )
                   : SizedBox(),
             ),
-            SizedBox(height: 70),
           ],
         ),
       ),

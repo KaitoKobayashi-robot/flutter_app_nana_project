@@ -41,7 +41,6 @@ class PageTheme extends StatelessWidget {
               height: ButtonArea.height,
               child: SelectButton(onPressed: () => push(context)),
             ),
-            SizedBox(height: 70),
           ],
         ),
       ),
