@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_app_nana_project/providers/user_image_provider.dart';
@@ -59,7 +60,6 @@ class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
                       child: Text('OK'),
                       onPressed: () {
                         context.pop();
-                        // Go back to the previous screen on error.
                         if (context.canPop()) {
                           context.pop();
                         }
@@ -92,16 +92,24 @@ class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
       backgroundColor: MainColors.bgColor,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CupertinoActivityIndicator(radius: 40),
-            const SizedBox(height: 40),
-            // _isLoadingImage の状態に応じて表示するテキストを変更
-            Text(
-              _isLoadingImage ? '画像を読み込み中...' : '撮影中だよ！カメラを見てね！',
-              style: const TextStyle(
-                fontSize: 24,
-                color: CupertinoColors.black,
+            SizedBox(height: 70),
+            Logo(height: 100),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CupertinoActivityIndicator(radius: 40),
+                  const SizedBox(height: 40),
+                  // _isLoadingImage の状態に応じて表示するテキストを変更
+                  Text(
+                    _isLoadingImage ? '画像を読み込み中...' : '撮影中だよ！カメラを見てね！',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      color: MainColors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
