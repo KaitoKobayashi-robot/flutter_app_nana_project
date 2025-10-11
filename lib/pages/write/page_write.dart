@@ -1,9 +1,12 @@
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_app_nana_project/pages/write/styles/ratio.dart';
+import 'package:flutter_app_nana_project/pages/write/widgets/image_area.dart';
 import 'package:flutter_app_nana_project/pages/write/widgets/buttons.dart';
+import 'package:flutter_app_nana_project/pages/write/widgets/theme_box.dart';
 import 'package:flutter_app_nana_project/providers/percent_indicator_provider.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signature/signature.dart';
 import 'package:flutter/rendering.dart';
@@ -13,6 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/download_url_provider.dart';
 import '../../providers/user_image_provider.dart';
 import 'package:flutter_app_nana_project/widgets/percent_indicator.dart';
+import 'package:flutter_app_nana_project/widgets/button.dart';
 
 final imageInfoProvider = Provider.autoDispose<Map<String, double>>((ref) {
   final imageData = ref.watch(userImageProvider);
@@ -47,9 +51,10 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   void initState() {
     super.initState();
     _controller = SignatureController(
+      strokeCap: StrokeCap.round,
       penStrokeWidth: 3,
-      penColor: CupertinoColors.black,
-      exportBackgroundColor: CupertinoColors.white,
+      penColor: MainColors.black,
+      exportBackgroundColor: CupertinoColors.transparent,
     );
     _controller.addListener(() {
       if (_hasSignedNotifire.value != _controller.isNotEmpty) {
@@ -129,7 +134,6 @@ class _PageWriteState extends ConsumerState<PageWrite> {
   @override
   Widget build(BuildContext context) {
     final imageData = ref.watch(userImageProvider);
-    final imageInfo = ref.watch(imageInfoProvider);
 
     if (imageData == null) {
       return CupertinoPageScaffold(
@@ -138,30 +142,46 @@ class _PageWriteState extends ConsumerState<PageWrite> {
       );
     }
 
-    final imageWidth = imageInfo['width']! / imagescale;
-    final imageHeight = imageInfo['height']! / imagescale;
-
     ValueListenableBuilder<bool> buttonBuilder = ValueListenableBuilder(
       valueListenable: _hasSignedNotifire,
       builder: (context, hasSigned, child) {
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CupertinoButton(
                   onPressed: hasSigned ? _handleClear : null,
-                  child: const Text('クリア'),
+                  child: const Text(
+                    'クリア',
+                    style: TextStyle(
+                      fontFamily: "ZenMaruGothic",
+                      color: MainColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 20),
                 CupertinoButton(
                   onPressed: hasSigned ? _handleUndo : null,
-                  child: const Text('元に戻す'),
+                  child: const Text(
+                    '一つ戻る',
+                    style: TextStyle(
+                      fontFamily: "ZenMaruGothic",
+                      color: MainColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 20),
                 CupertinoButton(
                   onPressed: hasSigned ? _handleRedo : null,
-                  child: const Text('やり直す'),
+                  child: const Text(
+                    'やり直す',
+                    style: TextStyle(
+                      fontFamily: "ZenMaruGothic",
+                      color: MainColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -170,8 +190,9 @@ class _PageWriteState extends ConsumerState<PageWrite> {
       },
     );
 
-    const signatureWidth = 450.0;
-    const signatureHeight = 300.0;
+    final mediaWidth = MediaQuery.of(context).size.width;
+    final signatureWidth = mediaWidth * Ratio.widthRatio * 0.97;
+    const signatureHeight = 235.0;
 
     final signatureArea = SizedBox(
       width: signatureWidth,
@@ -180,53 +201,60 @@ class _PageWriteState extends ConsumerState<PageWrite> {
         controller: _controller,
         width: signatureWidth,
         height: signatureHeight,
-        backgroundColor: CupertinoColors.white,
+        backgroundColor: CupertinoColors.transparent,
       ),
-    );
-
-    final image = Image.memory(
-      // scale: imagescale,
-      imageData,
-      fit: BoxFit.contain,
     );
 
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
       child: SafeArea(
         child: isLoading
-            ? progressIndicatorBuilder(context, ref)
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            ? Stack(
+                alignment: Alignment.center,
                 children: [
-                  SizedBox(height: 30),
-                  const Text(
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    '褒めたい相手に「褒め言葉」を書き込もう！',
-                  ),
-                  SizedBox(height: 30),
-                  Card(
-                    elevation: 4,
-                    child: RepaintBoundary(
-                      key: _completeImgKey,
-                      child: SizedBox(
-                        width: imageWidth,
-                        height: imageHeight,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Align(alignment: Alignment.center, child: image),
-                            Align(
-                              alignment: Alignment(0, 0.8),
-                              child: Card(elevation: 4, child: signatureArea),
-                            ),
-                          ],
-                        ),
+                  Positioned(top: 70, child: Logo(height: 100)),
+                  progressIndicatorBuilder(context, ref),
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.all(20),
+                    child: const Text(
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
+                      '褒めたい相手に「褒め言葉」を書き込もう！',
                     ),
                   ),
-                  buttonBuilder,
-                  SingleButton(onPressed: () => push(context)),
-                  SizedBox(height: 30),
+                  Column(
+                    children: [
+                      ThemeBox(),
+                      SizedBox(
+                        width: mediaWidth * Ratio.widthRatio,
+                        child: RepaintBoundary(
+                          key: _completeImgKey,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              ImageArea(imageBytes: imageData),
+                              Positioned(bottom: 10, child: signatureArea),
+                            ],
+                          ),
+                        ),
+                      ),
+                      buttonBuilder,
+                    ],
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: ButtonArea.width,
+                    height: ButtonArea.height,
+                    child: SingleButton(onPressed: () => push(context)),
+                  ),
                 ],
               ),
       ),
