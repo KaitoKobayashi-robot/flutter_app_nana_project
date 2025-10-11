@@ -83,13 +83,35 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/camera_waiting',
-      builder: (context, state) => const PageCameraWaiting(),
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const PageCameraWaiting(),
+      ),
     ),
     GoRoute(
       path: '/camera_preview',
-      builder: (context, state) => PageCameraPreview(extra: state.extra),
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: PageCameraPreview(extra: state.extra),
+      ),
     ),
-    GoRoute(path: '/write', builder: (context, state) => PageWrite()),
-    GoRoute(path: '/QR', builder: (context, state) => const PageQR()),
+    GoRoute(
+      path: '/write',
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: PageWrite(),
+      ),
+    ),
+    GoRoute(
+      path: '/QR',
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const PageQR(),
+      ),
+    ),
   ],
 );
