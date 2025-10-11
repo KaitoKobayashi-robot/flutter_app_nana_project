@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/camera_preview/widgets/buttons.dart';
+import 'package:flutter_app_nana_project/pages/camera_preview/widgets/image_area.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/logo.dart';
+import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '/providers/user_image_provider.dart';
@@ -11,21 +14,16 @@ class PageCameraPreview extends ConsumerWidget {
   final Object? extra;
   const PageCameraPreview({this.extra, super.key});
 
-  // 「次へ」ボタンの処理
   void push(BuildContext context, WidgetRef ref, Uint8List imageBytes) {
-    // Providerから受け取った画像データをuserImageProviderにセット
     ref.read(userImageProvider.notifier).state = imageBytes;
-    // 画面遷移
     context.push('/write');
   }
 
-  // 「もう一度撮る」ボタンの処理
   Future<void> back(
     BuildContext context,
     WidgetRef ref,
     String imageName,
   ) async {
-    // 現在の画像のファイル名を指定して削除
     await ref.read(imageServiceProvider).deleteImage(imageName);
 
     if (context.mounted) {
@@ -91,29 +89,27 @@ class PageCameraPreview extends ConsumerWidget {
 
             // 成功した場合、取得したバイトデータで画像を表示
             return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const SizedBox(height: 70),
-                Expanded(
-                  child: Center(
-                    child: Transform.scale(
-                      scale: 0.8,
-                      // 【変更】Image.networkからImage.memoryへ
-                      child: Image.memory(imageBytes, fit: BoxFit.contain),
-                    ),
+                Logo(height: 70),
+                SizedBox(height: 40),
+                Expanded(child: ImageArea(imageBytes: imageBytes)),
+                Container(
+                  alignment: Alignment.center,
+                  width: ButtonArea.width,
+                  height: ButtonArea.height,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ReTakeButton(
+                        onPressed: () => back(context, ref, imageName),
+                      ),
+                      NextButton(
+                        onPressed: () => push(context, ref, imageBytes),
+                      ),
+                    ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ReTakeButton(
-                      onPressed: () => back(context, ref, imageName),
-                    ),
-                    // 【変更】push処理を簡略化
-                    NextButton(onPressed: () => push(context, ref, imageBytes)),
-                  ],
-                ),
-                const SizedBox(height: 100),
               ],
             );
           },
