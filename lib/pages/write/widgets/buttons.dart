@@ -13,7 +13,7 @@ class SingleButton extends StatelessWidget {
       onPressed: onPressed,
       child: singleButtonBuilder(
         '完成',
-        'COMPLETE!',
+        'complete!',
         ButtonColors.buttonBgColor,
         ButtonColors.buttonTextColor,
       ),
