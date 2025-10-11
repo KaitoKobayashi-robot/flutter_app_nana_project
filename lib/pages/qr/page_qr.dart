@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/qr/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../providers/download_url_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_nana_project/widgets/button.dart';
+import 'package:svg_provider/svg_provider.dart';
 
 class PageQR extends ConsumerWidget {
   const PageQR({super.key});
@@ -16,6 +19,10 @@ class PageQR extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const String assetName = 'assets/images/hand_qr.svg';
+
+    final svg = SvgProvider(assetName);
+
     var downloadURL = ref.watch(downloadURLProvider);
     final qr = Container(
       padding: const EdgeInsets.all(50),
@@ -32,6 +39,7 @@ class PageQR extends ConsumerWidget {
           eyeShape: QrEyeShape.square,
           color: CupertinoColors.black,
         ),
+        embeddedImage: svg,
         dataModuleStyle: const QrDataModuleStyle(
           dataModuleShape: QrDataModuleShape.square,
           color: CupertinoColors.black,
@@ -62,7 +70,7 @@ class PageQR extends ConsumerWidget {
       'QRコードから保存して、あなたの\n「褒めたい相手」に送りましょう！',
       style: TextStyle(
         fontSize: 20,
-        // fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
     );
@@ -73,13 +81,19 @@ class PageQR extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(height: 200),
+            SizedBox(height: 100),
+            Logo(),
+            SizedBox(height: 70),
             titleText,
             SizedBox(height: 50),
             discriptionText,
             Expanded(child: Center(child: qr)),
-            SingleButton(onPressed: () => push(context)),
-            SizedBox(height: 100),
+            Container(
+              alignment: Alignment.center,
+              width: ButtonArea.width,
+              height: ButtonArea.height,
+              child: SingleButton(onPressed: () => push(context)),
+            ),
           ],
         ),
       ),
