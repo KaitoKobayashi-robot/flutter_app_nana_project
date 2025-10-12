@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/theme_setting/widgets/theme_buttons.dart';
 import 'package:flutter_app_nana_project/pages/theme_setting/widgets/title.dart';
@@ -17,7 +18,13 @@ class PageSettingTheme extends ConsumerStatefulWidget {
 }
 
 class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
+  final triggerDocRef = FirebaseFirestore.instance
+      .collection('camera')
+      .doc('trigger');
+
   push() {
+    final theme = ref.read(randomSelectorProvider).selectedTheme;
+    triggerDocRef.update({'theme': theme});
     context.push('/camera');
   }
 
