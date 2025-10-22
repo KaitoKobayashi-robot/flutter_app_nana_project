@@ -58,8 +58,8 @@ class _PageStartState extends State<PageStart> {
         child: Column(
           children: [
             const SizedBox(height: 100),
-            Logo(height: 150),
-            const Expanded(child: Center(child: Cards())),
+            Logo(height: 160),
+            Expanded(child: Center(child: Cards())),
             Container(
               alignment: Alignment.center,
               width: ButtonArea.width,

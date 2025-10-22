@@ -6,8 +6,8 @@ import 'package:flutter_app_nana_project/styles/colors.dart';
 Decoration buttonDecoration(Color color) {
   return BoxDecoration(
     color: color,
-    border: Border.all(width: 3, color: MainColors.white),
-    borderRadius: BorderRadius.circular(10),
+    border: Border.all(width: 5, color: MainColors.white),
+    borderRadius: BorderRadius.circular(30),
   );
 }
 
@@ -17,7 +17,7 @@ Decoration buttonDecoration(Color color) {
 
 const double offsetSingleTextSize = 10;
 const double offsetDoubleTextSize = 5;
-const double singleButtonTextSize = 35;
+const double singleButtonTextSize = 55;
 const double doubleButtonTextSize = 25;
 
 TextStyle singleButtonTitleStyle(Color color) {
@@ -26,6 +26,7 @@ TextStyle singleButtonTitleStyle(Color color) {
     color: color,
     fontSize: singleButtonTextSize,
     fontWeight: FontWeight.bold,
+    height: 1.0,
   );
 }
 
@@ -35,6 +36,7 @@ TextStyle singleButtonSubTitleStyle(Color color) {
     color: color,
     fontSize: singleButtonTextSize - offsetSingleTextSize,
     fontWeight: FontWeight.bold,
+    height: 1.0,
   );
 }
 
