@@ -16,6 +16,8 @@ class PageTheme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String text =
+        '身近な人や最近会えていない人、\n普段は恥ずかしくて言えない人をほめてみよう。\n誰をどのようにほめるのかを決める為に、\n簡単な「ほめお題」を選んでね！';
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
       child: Center(
@@ -29,8 +31,8 @@ class PageTheme extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TitleWidget(),
-                    SizedBox(height: 100),
-                    ThemeArea(selectedData: ""),
+                    SizedBox(height: 130),
+                    ThemeArea(selectedData: text),
                   ],
                 ),
               ),

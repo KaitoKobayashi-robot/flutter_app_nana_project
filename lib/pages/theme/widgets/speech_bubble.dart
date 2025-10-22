@@ -10,6 +10,7 @@ class SpeechBubble extends StatelessWidget {
     final Widget svg = SvgPicture.asset(
       assetName,
       semanticsLabel: 'Speech Bubble',
+      height: 550,
     );
     return svg;
   }

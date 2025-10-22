@@ -13,9 +13,16 @@ class ThemeArea extends StatelessWidget {
         SpeechBubble(),
         Column(
           children: [
-            Text(
-              selectedData ?? "",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 20),
+                Text(
+                  textAlign: TextAlign.center,
+                  selectedData ?? "",
+                  style: TextStyle(fontSize: 38, fontWeight: FontWeight.w900),
+                ),
+              ],
             ),
             SizedBox(height: 20),
           ],
