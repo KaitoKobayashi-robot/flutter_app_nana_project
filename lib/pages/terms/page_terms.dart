@@ -23,7 +23,8 @@ class PageTerms extends StatelessWidget {
             SizedBox(height: 70),
             Logo(height: 100),
             SizedBox(height: 50),
-            Expanded(child: Terms()),
+            Terms(),
+            Expanded(child: Container()),
             Container(
               alignment: Alignment.center,
               width: ButtonArea.width,

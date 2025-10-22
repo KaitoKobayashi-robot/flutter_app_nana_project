@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/styles/colors.dart';
 
 class Terms extends StatelessWidget {
   Terms({super.key});
@@ -6,15 +7,15 @@ class Terms extends StatelessWidget {
   final title = Container(
     child: Text(
       "【 ご利用にあたって 】",
-      style: TextStyle(fontSize: 50, fontWeight: FontWeight.w500),
+      style: TextStyle(fontSize: 50, fontWeight: FontWeight.w900),
     ),
   );
 
   final dedcription = Container(
-    margin: EdgeInsets.fromLTRB(0, 100, 0, 50),
+    margin: EdgeInsets.fromLTRB(0, 100, 0, 20),
     child: Text(
       "このアプリで撮影, 入力された内容は、卒業制作展示\nの一環として会場内スクリーンに上映, 表示されます。",
-      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+      style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
     ),
   );
 
@@ -27,10 +28,10 @@ class Terms extends StatelessWidget {
 
   articleBuilder(int index) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.fromLTRB(0, 100, 0, 0),
       child: Text(
         "・ ${articlesList[index]}",
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -39,19 +40,23 @@ class Terms extends StatelessWidget {
   Widget build(BuildContext context) {
     final articles = SizedBox(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(articlesList.length, (index) {
           return articleBuilder(index);
         }),
       ),
     );
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        title,
-        dedcription,
-        Expanded(child: articles),
-      ],
+    return Container(
+      padding: EdgeInsets.fromLTRB(50, 30, 50, 80),
+      decoration: BoxDecoration(
+        color: MainColors.white,
+        border: Border.all(color: MainColors.black, width: 8),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [title, dedcription, articles],
+      ),
     );
   }
 }
