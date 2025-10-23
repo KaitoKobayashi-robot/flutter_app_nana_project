@@ -20,13 +20,14 @@ class PageTerms extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            SizedBox(height: 70),
-            Logo(height: 100),
-            SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
+              child: Logo(height: 80),
+            ),
             Terms(),
             Expanded(child: Container()),
             Container(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomCenter,
               width: ButtonArea.width,
               height: ButtonArea.height,
               child: SingleButton(onPressed: () => push(context)),

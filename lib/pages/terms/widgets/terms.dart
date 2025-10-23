@@ -7,15 +7,15 @@ class Terms extends StatelessWidget {
   final title = Container(
     child: Text(
       "【 ご利用にあたって 】",
-      style: TextStyle(fontSize: 50, fontWeight: FontWeight.w900),
+      style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
     ),
   );
 
   final dedcription = Container(
-    margin: EdgeInsets.fromLTRB(0, 100, 0, 20),
+    margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
     child: Text(
       "このアプリで撮影, 入力された内容は、卒業制作展示\nの一環として会場内スクリーンに上映, 表示されます。",
-      style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
+      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
     ),
   );
 
@@ -28,10 +28,10 @@ class Terms extends StatelessWidget {
 
   articleBuilder(int index) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 100, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, 90, 0, 0),
       child: Text(
         "・ ${articlesList[index]}",
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -47,10 +47,10 @@ class Terms extends StatelessWidget {
       ),
     );
     return Container(
-      padding: EdgeInsets.fromLTRB(50, 30, 50, 80),
+      padding: EdgeInsets.fromLTRB(50, 20, 50, 80),
       decoration: BoxDecoration(
         color: MainColors.white,
-        border: Border.all(color: MainColors.black, width: 8),
+        border: Border.all(color: MainColors.black, width: 6),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
