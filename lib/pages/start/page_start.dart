@@ -56,12 +56,15 @@ class _PageStartState extends State<PageStart> {
       backgroundColor: MainColors.bgColor,
       child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(height: 100),
-            Logo(height: 160),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 60, 0, 30),
+              child: Logo(height: 140),
+            ),
             Expanded(child: Center(child: Cards())),
             Container(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomCenter,
               width: ButtonArea.width,
               height: ButtonArea.height,
               child: _isWifiConnected

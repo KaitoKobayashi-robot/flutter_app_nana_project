@@ -17,7 +17,7 @@ Decoration buttonDecoration(Color color) {
 
 const double offsetSingleTextSize = 10;
 const double offsetDoubleTextSize = 5;
-const double singleButtonTextSize = 55;
+const double singleButtonTextSize = 45;
 const double doubleButtonTextSize = 25;
 
 TextStyle singleButtonTitleStyle(Color color) {

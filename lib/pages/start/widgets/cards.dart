@@ -4,8 +4,8 @@ import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Config {
-  static const double svgLogoSize = 200;
-  static const double svgNumSize = 60;
+  static const double svgLogoSize = 160;
+  static const double svgNumSize = 50;
 }
 
 class Cards extends StatelessWidget {
@@ -55,12 +55,12 @@ class Cards extends StatelessWidget {
 
   cardBuilder(String text, Widget svgLogo, Widget svgNum) {
     return Container(
-      margin: EdgeInsets.all(20),
-      height: 240,
-      width: 950,
+      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      height: 190,
+      width: 750,
       decoration: BoxDecoration(
         color: CardColors.bgColor,
-        border: Border.all(width: 8, color: MainColors.black),
+        border: Border.all(width: 6, color: MainColors.black),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(
@@ -74,7 +74,7 @@ class Cards extends StatelessWidget {
             SizedBox(width: 10),
             Text(
               text,
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
             ),
           ],
         ),

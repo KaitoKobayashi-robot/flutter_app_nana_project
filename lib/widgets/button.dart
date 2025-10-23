@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/styles/button.dart';
 
 class Single {
-  static const double width = 600;
-  static const double height = 160;
+  static const double width = 500;
+  static const double height = 130;
 }
 
 class Double {
@@ -13,7 +13,7 @@ class Double {
 
 class ButtonArea {
   static const double width = double.infinity;
-  static const double height = 250;
+  static const double height = 230;
   static const double spacing = 20;
 }
 
@@ -24,7 +24,7 @@ Widget singleButtonBuilder(
   Color textColor,
 ) {
   return Container(
-    margin: EdgeInsets.fromLTRB(0, 0, 0, 40),
+    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
     width: Single.width,
     height: Single.height,
     decoration: buttonDecoration(boxColor),
