@@ -20,7 +20,7 @@ class ThemeArea extends StatelessWidget {
                 Text(
                   textAlign: TextAlign.center,
                   selectedData ?? "",
-                  style: TextStyle(fontSize: 38, fontWeight: FontWeight.w900),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
                 ),
               ],
             ),

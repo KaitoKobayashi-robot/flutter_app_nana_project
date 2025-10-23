@@ -24,21 +24,23 @@ class PageTheme extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 70),
-            Logo(height: 100),
+            Logo(),
             Expanded(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TitleWidget(),
-                    SizedBox(height: 130),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 170, 0, 30),
+                      child: TitleWidget(),
+                    ),
                     ThemeArea(selectedData: text),
                   ],
                 ),
               ),
             ),
             Container(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomCenter,
               width: ButtonArea.width,
               height: ButtonArea.height,
               child: SelectButton(onPressed: () => push(context)),

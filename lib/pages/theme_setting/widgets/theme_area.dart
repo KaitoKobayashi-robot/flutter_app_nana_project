@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_nana_project/pages/theme_setting/widgets/speech_bubble.dart';
+import 'package:flutter_app_nana_project/pages/theme/widgets/speech_bubble.dart';
 
 class ThemeArea extends StatelessWidget {
   final String? selectedData;
@@ -13,9 +13,16 @@ class ThemeArea extends StatelessWidget {
         SpeechBubble(),
         Column(
           children: [
-            Text(
-              selectedData ?? "",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 20),
+                Text(
+                  textAlign: TextAlign.center,
+                  selectedData ?? "",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+                ),
+              ],
             ),
             SizedBox(height: 20),
           ],

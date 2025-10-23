@@ -7,7 +7,7 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'だれを？どのように？ほめて！',
-      style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+      style: TextStyle(fontSize: 45, fontWeight: FontWeight.w900),
     );
   }
 }

@@ -46,6 +46,7 @@ Widget doubleButtonBuilder(
   Color textColor,
 ) {
   return Container(
+    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
     width: Double.width,
     height: Double.height,
     decoration: buttonDecoration(boxColor),

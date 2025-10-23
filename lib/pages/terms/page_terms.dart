@@ -22,7 +22,7 @@ class PageTerms extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
-              child: Logo(height: 80),
+              child: Logo(),
             ),
             Terms(),
             Expanded(child: Container()),

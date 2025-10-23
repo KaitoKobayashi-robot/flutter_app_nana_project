@@ -11,7 +11,7 @@ class Logo extends StatelessWidget {
     final Widget svg = SvgPicture.asset(
       assetName,
       semanticsLabel: 'Homete LOGO',
-      height: height ?? 150,
+      height: height ?? 80,
     );
     return svg;
   }
