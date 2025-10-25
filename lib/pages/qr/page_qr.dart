@@ -60,16 +60,16 @@ class PageQR extends ConsumerWidget {
     final titleText = const Text(
       '画像が完成しました！',
       style: TextStyle(
-        fontSize: 40,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
+        fontSize: 45,
+        fontWeight: FontWeight.w900,
+        color: MainColors.black,
       ),
     );
 
     final discriptionText = const Text(
       'QRコードから保存して、あなたの\n「褒めたい相手」に送りましょう！',
       style: TextStyle(
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
@@ -82,7 +82,7 @@ class PageQR extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(height: 100),
-            Logo(),
+            Logo(height: 150),
             SizedBox(height: 70),
             titleText,
             SizedBox(height: 50),

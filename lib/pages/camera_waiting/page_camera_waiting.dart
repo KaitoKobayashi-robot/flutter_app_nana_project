@@ -97,15 +97,10 @@ class _PageCameraWaitingState extends ConsumerState<PageCameraWaiting> {
           children: [
             SizedBox(height: 70),
             Logo(height: 100),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CupertinoActivityIndicator(radius: 40),
-                const SizedBox(height: 40),
-                // _isLoadingImage の状態に応じて表示するテキストを変更
-                // CameraGraphic(text: text),
-              ],
+            Expanded(
+              child: CameraGraphic(text: text, isLoading: _isLoadingImage),
             ),
+            SizedBox(height: 120),
           ],
         ),
       ),

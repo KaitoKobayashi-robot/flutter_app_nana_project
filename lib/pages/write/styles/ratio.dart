@@ -1,3 +1,3 @@
 class Ratio {
-  static const double widthRatio = 0.70;
+  static const double widthRatio = 0.80;
 }

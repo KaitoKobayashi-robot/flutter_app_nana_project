@@ -1,9 +1,8 @@
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/write/styles/ratio.dart';
-import 'package:flutter_app_nana_project/pages/write/widgets/image_area.dart';
 import 'package:flutter_app_nana_project/pages/write/widgets/buttons.dart';
-import 'package:flutter_app_nana_project/pages/write/widgets/theme_box.dart';
+import 'package:flutter_app_nana_project/pages/write/widgets/write_container.dart';
 import 'package:flutter_app_nana_project/providers/percent_indicator_provider.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
@@ -52,7 +51,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     super.initState();
     _controller = SignatureController(
       strokeCap: StrokeCap.round,
-      penStrokeWidth: 3,
+      penStrokeWidth: 5,
       penColor: MainColors.black,
       exportBackgroundColor: CupertinoColors.transparent,
     );
@@ -145,45 +144,41 @@ class _PageWriteState extends ConsumerState<PageWrite> {
     ValueListenableBuilder<bool> buttonBuilder = ValueListenableBuilder(
       valueListenable: _hasSignedNotifire,
       builder: (context, hasSigned, child) {
-        return Column(
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CupertinoButton(
-                  onPressed: hasSigned ? _handleClear : null,
-                  child: const Text(
-                    'クリア',
-                    style: TextStyle(
-                      fontFamily: "ZenMaruGothic",
-                      color: MainColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            CupertinoButton(
+              onPressed: hasSigned ? _handleClear : null,
+              child: const Text(
+                'クリア',
+                style: TextStyle(
+                  fontFamily: "ZenMaruGothic",
+                  color: MainColors.black,
+                  fontWeight: FontWeight.bold,
                 ),
-                CupertinoButton(
-                  onPressed: hasSigned ? _handleUndo : null,
-                  child: const Text(
-                    '一つ戻る',
-                    style: TextStyle(
-                      fontFamily: "ZenMaruGothic",
-                      color: MainColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+              ),
+            ),
+            CupertinoButton(
+              onPressed: hasSigned ? _handleUndo : null,
+              child: const Text(
+                '一つ戻る',
+                style: TextStyle(
+                  fontFamily: "ZenMaruGothic",
+                  color: MainColors.black,
+                  fontWeight: FontWeight.bold,
                 ),
-                CupertinoButton(
-                  onPressed: hasSigned ? _handleRedo : null,
-                  child: const Text(
-                    'やり直す',
-                    style: TextStyle(
-                      fontFamily: "ZenMaruGothic",
-                      color: MainColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+              ),
+            ),
+            CupertinoButton(
+              onPressed: hasSigned ? _handleRedo : null,
+              child: const Text(
+                'やり直す',
+                style: TextStyle(
+                  fontFamily: "ZenMaruGothic",
+                  color: MainColors.black,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
+              ),
             ),
           ],
         );
@@ -192,7 +187,7 @@ class _PageWriteState extends ConsumerState<PageWrite> {
 
     final mediaWidth = MediaQuery.of(context).size.width;
     final signatureWidth = mediaWidth * Ratio.widthRatio * 0.97;
-    const signatureHeight = 235.0;
+    const signatureHeight = 270.0;
 
     final signatureArea = SizedBox(
       width: signatureWidth,
@@ -221,28 +216,39 @@ class _PageWriteState extends ConsumerState<PageWrite> {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    margin: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 30),
                     child: const Text(
                       style: TextStyle(
                         fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w900,
                       ),
                       '褒めたい相手に「褒め言葉」を書き込もう！',
                     ),
                   ),
                   Column(
                     children: [
-                      ThemeBox(),
                       SizedBox(
                         width: mediaWidth * Ratio.widthRatio,
                         child: RepaintBoundary(
                           key: _completeImgKey,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              ImageArea(imageBytes: imageData),
-                              Positioned(bottom: 10, child: signatureArea),
-                            ],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: BoxBorder.all(
+                                color: MainColors.black,
+                                width: 6,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(4),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  WriteContainer(imageBytes: imageData),
+                                  Positioned(bottom: 17, child: signatureArea),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -250,9 +256,9 @@ class _PageWriteState extends ConsumerState<PageWrite> {
                     ],
                   ),
                   Container(
-                    alignment: Alignment.center,
+                    alignment: Alignment.bottomCenter,
                     width: ButtonArea.width,
-                    height: ButtonArea.height,
+                    height: ButtonArea.height * 0.8,
                     child: SingleButton(onPressed: () => push(context)),
                   ),
                 ],

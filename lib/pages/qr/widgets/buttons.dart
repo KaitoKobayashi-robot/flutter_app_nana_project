@@ -12,7 +12,7 @@ class SingleButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       child: singleButtonBuilder(
-        '最初に戻る',
+        '最初にもどる',
         'next',
         ButtonColors.buttonBgColor,
         ButtonColors.buttonTextColor,

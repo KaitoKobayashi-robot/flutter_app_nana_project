@@ -8,7 +8,7 @@ progressIndicatorBuilder(BuildContext context, WidgetRef ref) {
   return Center(
     child: CircularPercentIndicator(
       percent: ref.watch(uploadProgressProvider),
-      backgroundColor: CupertinoColors.inactiveGray,
+      backgroundColor: MainColors.white,
       progressColor: MainColors.mainColor,
       radius: 200.0,
       lineWidth: 30,
