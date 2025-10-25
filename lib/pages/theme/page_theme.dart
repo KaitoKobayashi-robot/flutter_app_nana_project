@@ -35,6 +35,7 @@ class PageTheme extends StatelessWidget {
                       child: TitleWidget(),
                     ),
                     ThemeArea(selectedData: text),
+                    SizedBox(height: 80),
                   ],
                 ),
               ),

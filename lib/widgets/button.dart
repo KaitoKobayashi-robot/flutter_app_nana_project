@@ -8,7 +8,7 @@ class Single {
 
 class Double {
   static const double width = 320;
-  static const double height = 110;
+  static const double height = 130;
 }
 
 class ButtonArea {
@@ -49,7 +49,7 @@ Widget doubleButtonBuilder(
     margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
     width: Double.width,
     height: Double.height,
-    decoration: buttonDecoration(boxColor),
+    decoration: buttonDoubleDecoration(boxColor),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

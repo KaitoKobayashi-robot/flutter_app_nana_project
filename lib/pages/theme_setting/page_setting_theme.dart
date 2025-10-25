@@ -64,12 +64,13 @@ class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
                       child: TitleWidget(),
                     ),
                     ThemeArea(selectedData: selectedData),
+                    SizedBox(height: 80),
                   ],
                 ),
               ),
             ),
             Container(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               width: ButtonArea.width,
               height: ButtonArea.height,
               child: !isLoading

@@ -11,6 +11,14 @@ Decoration buttonDecoration(Color color) {
   );
 }
 
+Decoration buttonDoubleDecoration(Color color) {
+  return BoxDecoration(
+    color: color,
+    border: Border.all(width: 5, color: MainColors.white),
+    borderRadius: BorderRadius.circular(10),
+  );
+}
+
 /* -------------------------- */
 
 /* Button Text Design */
