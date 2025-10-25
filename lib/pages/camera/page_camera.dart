@@ -27,7 +27,7 @@ class PageCamera extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 70),
-            Logo(height: 100),
+            Logo(),
             Expanded(child: Center(child: CameraGraphic())),
             Container(
               alignment: Alignment.center,
