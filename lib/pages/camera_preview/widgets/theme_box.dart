@@ -18,13 +18,13 @@ class ThemeBox extends ConsumerWidget {
       width: mediaWidth * Ratio.widthRatio,
       decoration: BoxDecoration(
         color: Color(0xffe3ca49),
-        border: BoxBorder.all(color: MainColors.black, width: 3),
-        borderRadius: BorderRadius.circular(5),
+        border: Border(bottom: BorderSide(color: MainColors.black, width: 5)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       child: Center(
         child: Text(
           theme,
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
         ),
       ),
     );

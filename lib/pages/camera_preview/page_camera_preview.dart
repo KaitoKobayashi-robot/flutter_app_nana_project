@@ -93,7 +93,13 @@ class PageCameraPreview extends ConsumerWidget {
                 const SizedBox(height: 70),
                 Logo(height: 70),
                 SizedBox(height: 40),
-                ImageArea(imageBytes: imageBytes),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: MainColors.black, width: 6),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ImageArea(imageBytes: imageBytes),
+                ),
                 Container(
                   alignment: Alignment.center,
                   width: ButtonArea.width,
