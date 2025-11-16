@@ -2,14 +2,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/start/styles/colors.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 class Config {
   static const double svgLogoSize = 160;
   static const double svgNumSize = 50;
+  static const double lottieWidth = 200;
 }
 
 class Cards extends StatelessWidget {
   Cards({super.key});
+
+  final lottieSelectTheme = Lottie.asset(
+    "assets/json/finger.json",
+    width: Config.lottieWidth,
+  );
+
+  final lottieTakePhoto = Lottie.asset(
+    "assets/json/camera.json",
+    width: Config.lottieWidth,
+  );
+
+  final lottieWriteComments = Lottie.asset(
+    "assets/json/pen.json",
+    width: Config.lottieWidth,
+  );
+
+  final lottieSendMessage = Lottie.asset(
+    "assets/json/mail.json",
+    width: Config.lottieWidth,
+  );
 
   final Widget svgSelectTheme = SvgPicture.asset(
     'assets/images/select_theme.svg',
@@ -88,10 +110,10 @@ class Cards extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          cardBuilder("ランダムの「ほめお題」を選ぶ", svgSelectTheme, svg1),
-          cardBuilder("写真を撮る", svgTakePhoto, svg2),
-          cardBuilder("お題にあったほめ言葉を書く", svgWriteComments, svg3),
-          cardBuilder('画像を保存して、ほめたい\n相手に送ろう！', svgSendMessage, svg4),
+          cardBuilder("ランダムの「ほめお題」を選ぶ", lottieSelectTheme, svg1),
+          cardBuilder("写真を撮る", lottieTakePhoto, svg2),
+          cardBuilder("お題にあったほめ言葉を書く", lottieWriteComments, svg3),
+          cardBuilder('画像を保存して、ほめたい\n相手に送ろう！', lottieSendMessage, svg4),
         ],
       ),
     );
