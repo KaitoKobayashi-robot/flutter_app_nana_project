@@ -46,16 +46,18 @@ class Terms extends StatelessWidget {
         }),
       ),
     );
-    return Container(
-      padding: EdgeInsets.fromLTRB(50, 20, 50, 80),
-      decoration: BoxDecoration(
-        color: MainColors.white,
-        border: Border.all(color: MainColors.black, width: 6),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [title, dedcription, articles],
+    return Center(
+      child: Container(
+        padding: EdgeInsets.fromLTRB(50, 20, 50, 80),
+        decoration: BoxDecoration(
+          color: MainColors.white,
+          border: Border.all(color: MainColors.black, width: 6),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [title, dedcription, articles],
+        ),
       ),
     );
   }

@@ -67,7 +67,8 @@ class PageQR extends ConsumerWidget {
     );
 
     final discriptionText = const Text(
-      'QRコードから保存して、あなたの\n「褒めたい相手」に送りましょう！',
+      'QRコードから完成した画像を保存して、\n伝えたい相手に送ってみよう！',
+      textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 25,
         fontWeight: FontWeight.bold,

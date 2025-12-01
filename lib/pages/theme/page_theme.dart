@@ -17,7 +17,7 @@ class PageTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String text =
-        '身近な人や最近会えていない人、\n普段は恥ずかしくて言えない人をほめてみよう。\n誰をどのようにほめるのかを決める為に、\n簡単な「ほめお題」を選んでね！';
+        '今あなたが思う、\n「ほめたい人」をほめてみよう。\n誰をどのように褒めるのかを決めるために、\n簡単な「ほめお題」を選んでね！';
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
       child: Center(

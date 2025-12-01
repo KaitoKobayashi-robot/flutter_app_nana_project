@@ -6,12 +6,16 @@ import 'package:lottie/lottie.dart';
 
 class Config {
   static const double svgLogoSize = 160;
-  static const double svgNumSize = 50;
-  static const double lottieWidth = 200;
+  static const double svgNumSize = 60;
+  static const double lottieWidth = 250;
+  static const double safeAreaWidth = 200;
+  static const double safeAreaHeight = 250;
 }
 
 class Cards extends StatelessWidget {
   Cards({super.key});
+
+  final lottieBoat = Lottie.asset("assets/json/boat.json", width: 50);
 
   final lottieSelectTheme = Lottie.asset(
     "assets/json/finger.json",
@@ -75,28 +79,42 @@ class Cards extends StatelessWidget {
     width: Config.svgNumSize,
   );
 
-  cardBuilder(String text, Widget svgLogo, Widget svgNum) {
+  cardBuilder(String text, Widget svgLogo, Widget svgNum, bool isPaper) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
-      height: 190,
+      // margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      height: 200,
       width: 750,
       decoration: BoxDecoration(
-        color: CardColors.bgColor,
-        border: Border.all(width: 6, color: MainColors.black),
-        borderRadius: BorderRadius.circular(20),
+        // color: CardColors.bgColor,
+        // border: Border.all(width: 6, color: MainColors.black),
+        // borderRadius: BorderRadius.circular(20),
       ),
       child: Center(
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
-              child: svgLogo,
+              // color: CupertinoColors.activeGreen,
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: SizedBox(
+                width: Config.safeAreaWidth,
+                height: Config.safeAreaHeight,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(isPaper ? 40 : 0, 0, 0, 0),
+                  child: Center(child: svgLogo),
+                ),
+              ),
             ),
-            svgNum,
+            Container(
+              // color: CupertinoColors.activeBlue,
+              child: svgNum,
+            ),
             SizedBox(width: 10),
-            Text(
-              text,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+            Container(
+              // color: CupertinoColors.destructiveRed,
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+              ),
             ),
           ],
         ),
@@ -106,16 +124,41 @@ class Cards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          cardBuilder("ランダムの「ほめお題」を選ぶ", lottieSelectTheme, svg1),
-          cardBuilder("写真を撮る", lottieTakePhoto, svg2),
-          cardBuilder("お題にあったほめ言葉を書く", lottieWriteComments, svg3),
-          cardBuilder('画像を保存して、ほめたい\n相手に送ろう！', lottieSendMessage, svg4),
-        ],
-      ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+          child: Center(
+            child: Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                color: CardColors.bgColor,
+                border: Border.all(width: 6, color: MainColors.black),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    "【手順】",
+                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.w900),
+                  ),
+                  cardBuilder("ほめお題を選ぶ", lottieSelectTheme, svg1, true),
+                  cardBuilder("写真を撮る", lottieTakePhoto, svg2, false),
+                  cardBuilder("ほめ言葉を書く", lottieWriteComments, svg3, true),
+                  cardBuilder('ほめたい相手に送ろう！', lottieSendMessage, svg4, false),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Lottie.asset("assets/json/boat.json", height: 50),
+        ),
+      ],
     );
   }
 }

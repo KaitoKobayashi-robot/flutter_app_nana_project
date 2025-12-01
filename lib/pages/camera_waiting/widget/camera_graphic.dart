@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 class CameraGraphic extends StatelessWidget {
   final String text;
@@ -9,29 +10,30 @@ class CameraGraphic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String assetName = 'assets/images/take_photo.svg';
-    final Widget svgCamera = SvgPicture.asset(
-      assetName,
-      semanticsLabel: 'Camera Graphic',
-      height: 350,
+    final Widget lottieCamera = Lottie.asset(
+      'assets/json/camera_yuudou.json',
+      width: 600,
     );
-    final Widget svgArrows = SvgPicture.asset(
-      'assets/images/arrows.svg',
-      semanticsLabel: 'arrows',
-      height: 60,
-    );
+
+    // const String assetName = 'assets/images/take_photo.svg';
+    // final Widget svgCamera = SvgPicture.asset(
+    //   assetName,
+    //   semanticsLabel: 'Camera Graphic',
+    //   height: 350,
+    // );
+    // final Widget svgArrows = SvgPicture.asset(
+    //   'assets/images/arrows.svg',
+    //   semanticsLabel: 'arrows',
+    //   height: 60,
+    // );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        svgCamera,
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 50),
-          child: isLoading ? SizedBox(height: 60) : svgArrows,
-        ),
+        lottieCamera,
         Text(
           text,
           style: TextStyle(
-            fontSize: 40,
+            fontSize: 50,
             fontWeight: FontWeight.w900,
             color: MainColors.black,
           ),

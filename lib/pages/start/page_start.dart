@@ -60,7 +60,7 @@ class _PageStartState extends State<PageStart> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 60, 0, 30),
-              child: Logo(height: 140),
+              child: Logo(height: 100),
             ),
             Expanded(child: Center(child: Cards())),
             Container(
