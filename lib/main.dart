@@ -4,6 +4,7 @@ import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_app_nana_project/router.dart';
+import 'package:flutter_app_nana_project/service/bgm_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,11 +13,42 @@ void main() async {
   runApp(scope);
 }
 
-class Home extends ConsumerWidget {
+class Home extends ConsumerStatefulWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Home> createState() => _HomeState();
+}
+
+class _HomeState extends ConsumerState<Home> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(bgmServiceProvider);
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    ref.read(appLifecycleStateProvider.notifier).state = state;
+    final bgmService = ref.read(bgmServiceProvider);
+    if (state == AppLifecycleState.paused) {
+      bgmService.pauseBgm();
+    } else if (state == AppLifecycleState.resumed) {
+      bgmService.resumeBgm();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return CupertinoApp.router(
       theme: CupertinoThemeData(
         textTheme: const CupertinoTextThemeData(
