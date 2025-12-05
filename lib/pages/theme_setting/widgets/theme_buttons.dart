@@ -1,16 +1,21 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/service/se_manager.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:flutter_app_nana_project/pages/theme_setting/styles/colors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ResetButton extends StatelessWidget {
+class ResetButton extends ConsumerWidget {
   const ResetButton({super.key, this.onPressed});
 
   final VoidCallback? onPressed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoButton(
-      onPressed: onPressed,
+      onPressed: () {
+        ref.read(seManagerProvider).playTapSound();
+        onPressed!();
+      },
       child: doubleButtonBuilder(
         "もう一度えらぶ",
         "reselection",
@@ -21,15 +26,18 @@ class ResetButton extends StatelessWidget {
   }
 }
 
-class NextButton extends StatelessWidget {
+class NextButton extends ConsumerWidget {
   const NextButton({super.key, this.onPressed});
 
   final VoidCallback? onPressed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoButton(
-      onPressed: onPressed,
+      onPressed: () {
+        ref.read(seManagerProvider).playTapSound();
+        onPressed!();
+      },
       child: doubleButtonBuilder(
         "次へ",
         "next",

@@ -17,10 +17,6 @@ class PageTerms extends StatelessWidget {
     context.push('/theme');
   }
 
-  back(BuildContext context) {
-    context.go('/start');
-  }
-
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -53,11 +49,7 @@ class PageTerms extends StatelessWidget {
               child: Lottie.asset("assets/json/boat.json", height: 50),
             ),
           ),
-          Positioned(
-            top: 50,
-            left: 50,
-            child: BackButton(onPressed: () => back(context)),
-          ),
+          Positioned(top: 50, left: 50, child: BackButton()),
         ],
       ),
     );

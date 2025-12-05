@@ -4,6 +4,7 @@ import 'package:flutter_app_nana_project/pages/theme_setting/widgets/theme_butto
 import 'package:flutter_app_nana_project/pages/theme_setting/widgets/title.dart';
 import 'package:flutter_app_nana_project/providers/theme_provider.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/back_button.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
@@ -49,42 +50,47 @@ class _PageSettingThemeState extends ConsumerState<PageSettingTheme> {
 
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
-      child: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 70),
-            Logo(),
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 170, 0, 30),
-                      child: TitleWidget(),
-                    ),
-                    ThemeArea(selectedData: selectedData),
-                    SizedBox(height: 80),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              width: ButtonArea.width,
-              height: ButtonArea.height,
-              child: !isLoading
-                  ? Row(
+      child: Stack(
+        children: [
+          Center(
+            child: Column(
+              children: [
+                SizedBox(height: 70),
+                Logo(),
+                Expanded(
+                  child: Center(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ResetButton(onPressed: () => reset()),
-                        NextButton(onPressed: () => push()),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 170, 0, 30),
+                          child: TitleWidget(),
+                        ),
+                        ThemeArea(selectedData: selectedData),
+                        SizedBox(height: 80),
                       ],
-                    )
-                  : SizedBox(),
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: ButtonArea.width,
+                  height: ButtonArea.height,
+                  child: !isLoading
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ResetButton(onPressed: () => reset()),
+                            NextButton(onPressed: () => push()),
+                          ],
+                        )
+                      : SizedBox(),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Positioned(top: 50, left: 50, child: BackButton()),
+        ],
       ),
     );
   }

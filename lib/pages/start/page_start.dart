@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_nana_project/widgets/back_button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'dart:async';
@@ -54,25 +55,30 @@ class _PageStartState extends State<PageStart> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 60, 0, 30),
-              child: Logo(height: 100),
+      child: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 60, 0, 30),
+                  child: Logo(height: 100),
+                ),
+                Expanded(child: Center(child: Cards())),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  width: ButtonArea.width,
+                  height: ButtonArea.height,
+                  child: _isWifiConnected
+                      ? SingleButton(onPressed: () => push(context))
+                      : const ErrorCard(message: '🛜 Wi-Fiに接続してください 🛜'),
+                ),
+              ],
             ),
-            Expanded(child: Center(child: Cards())),
-            Container(
-              alignment: Alignment.bottomCenter,
-              width: ButtonArea.width,
-              height: ButtonArea.height,
-              child: _isWifiConnected
-                  ? SingleButton(onPressed: () => push(context))
-                  : const ErrorCard(message: '🛜 Wi-Fiに接続してください 🛜'),
-            ),
-          ],
-        ),
+          ),
+          Positioned(top: 50, left: 50, child: BackButton()),
+        ],
       ),
     );
   }

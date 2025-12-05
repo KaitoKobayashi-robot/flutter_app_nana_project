@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app_nana_project/pages/homete/page_homete.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_app_nana_project/pages/camera_control/page_camera_control.dart';
 import 'package:flutter_app_nana_project/pages/camera_waiting/page_camera_waiting.dart';
@@ -31,8 +32,16 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
 }
 
 final router = GoRouter(
-  initialLocation: '/start',
+  initialLocation: '/homete',
   routes: [
+    GoRoute(
+      path: "/homete",
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const PageHomete(),
+      ),
+    ),
     GoRoute(
       path: '/start',
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
