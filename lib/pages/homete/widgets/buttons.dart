@@ -13,7 +13,7 @@ class HometeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoButton(
       onPressed: () {
-        ref.read(seManagerProvider).playTapSound();
+        ref.read(seManagerProvider).playHomete();
         onPressed!();
       },
       child: Container(

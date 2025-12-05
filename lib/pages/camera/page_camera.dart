@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app_nana_project/pages/camera/widgets/buttons.dart';
@@ -15,9 +17,15 @@ class PageCamera extends StatelessWidget {
       .collection('camera')
       .doc('trigger');
 
-  push(BuildContext context) {
-    triggerDocRef.update({'takePhoto': true});
-    context.push('/camera_waiting');
+  Future<void> push(BuildContext context) async {
+    try {
+      await triggerDocRef.set({'takePhoto': true}, SetOptions(merge: true));
+      if (context.mounted) {
+        context.push('/camera_waiting');
+      }
+    } catch (e) {
+      log("Error in push to camera waiting: $e");
+    }
   }
 
   @override

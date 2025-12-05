@@ -5,6 +5,7 @@ import 'package:flutter_app_nana_project/pages/write/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/pages/write/widgets/write_container.dart';
 import 'package:flutter_app_nana_project/providers/percent_indicator_provider.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/back_button.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signature/signature.dart';
@@ -211,56 +212,66 @@ class _PageWriteState extends ConsumerState<PageWrite> {
                   progressIndicatorBuilder(context, ref),
                 ],
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            : Stack(
                 children: [
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 30),
-                    child: const Text(
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w900,
-                      ),
-                      '褒めたい相手に「褒め言葉」を書き込もう！',
-                    ),
-                  ),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: mediaWidth * Ratio.widthRatio,
-                        child: RepaintBoundary(
-                          key: _completeImgKey,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: BoxBorder.all(
-                                color: MainColors.black,
-                                width: 6,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(4),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  WriteContainer(imageBytes: imageData),
-                                  Positioned(bottom: 17, child: signatureArea),
-                                ],
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 30),
+                        child: const Text(
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                          ),
+                          '褒めたい相手に「褒め言葉」を書き込もう！',
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: mediaWidth * Ratio.widthRatio,
+                            child: RepaintBoundary(
+                              key: _completeImgKey,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: BoxBorder.all(
+                                    color: MainColors.black,
+                                    width: 6,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    4,
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      WriteContainer(imageBytes: imageData),
+                                      Positioned(
+                                        bottom: 17,
+                                        child: signatureArea,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          buttonBuilder,
+                        ],
                       ),
-                      buttonBuilder,
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        width: ButtonArea.width,
+                        height: ButtonArea.height * 0.8,
+                        child: SingleButton(onPressed: () => push(context)),
+                      ),
                     ],
                   ),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    width: ButtonArea.width,
-                    height: ButtonArea.height * 0.8,
-                    child: SingleButton(onPressed: () => push(context)),
-                  ),
+                  Positioned(top: 50, left: 50, child: BackButton()),
                 ],
               ),
       ),

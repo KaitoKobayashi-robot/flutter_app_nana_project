@@ -12,8 +12,9 @@ class SingleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoButton(
-      onPressed: () {
-        ref.read(seManagerProvider).playTapSound();
+      onPressed: () async {
+        await ref.read(seManagerProvider).playTapSound();
+        ref.read(seManagerProvider).playHomeodai();
         onPressed!();
       },
       child: singleButtonBuilder(

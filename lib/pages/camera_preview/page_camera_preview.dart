@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/camera_preview/widgets/buttons.dart';
 import 'package:flutter_app_nana_project/pages/camera_preview/widgets/image_area.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
+import 'package:flutter_app_nana_project/widgets/back_button.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:go_router/go_router.dart';
@@ -40,21 +41,26 @@ class PageCameraPreview extends ConsumerWidget {
     if (imageName == null || imageName.isEmpty) {
       return CupertinoPageScaffold(
         backgroundColor: MainColors.bgColor,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('画像の情報が見つかりません。'),
-              const SizedBox(height: 20),
-              ReTakeButton(
-                onPressed: () {
-                  if (context.canPop()) {
-                    context.pop();
-                  }
-                },
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('画像の情報が見つかりません。'),
+                  const SizedBox(height: 20),
+                  ReTakeButton(
+                    onPressed: () {
+                      if (context.canPop()) {
+                        context.pop();
+                      }
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            Positioned(top: 50, left: 50, child: BackButton()),
+          ],
         ),
       );
     }

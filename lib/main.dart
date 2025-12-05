@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'firebase_options.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_app_nana_project/service/bgm_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final scope = ProviderScope(child: Home());
   runApp(scope);

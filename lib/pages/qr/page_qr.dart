@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/qr/widgets/buttons.dart';
+import 'package:flutter_app_nana_project/service/se_manager.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,7 @@ class PageQR extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(seManagerProvider).playQR();
     const String assetName = 'assets/images/hand_qr.svg';
 
     final svg = SvgProvider(assetName);

@@ -1,3 +1,4 @@
+import 'package:flutter_app_nana_project/service/se_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:math';
 import 'dart:async';
@@ -40,7 +41,8 @@ class ThemeState {
 }
 
 class RandomSelectNotifier extends StateNotifier<ThemeState> {
-  RandomSelectNotifier() : super(const ThemeState()) {
+  final SeManager _seManager;
+  RandomSelectNotifier(this._seManager) : super(const ThemeState()) {
     selectRandomItem();
   }
 
@@ -54,15 +56,18 @@ class RandomSelectNotifier extends StateNotifier<ThemeState> {
   void startAutoSelect() {
     if (state.isLoading) return;
 
+    _seManager.playDrumRoll();
     state = state.copyWith(isLoading: true);
 
     timer = Timer.periodic(Duration(milliseconds: 20), (Timer t) {
       selectRandomItem();
     });
 
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(seconds: 2), () {
       timer?.cancel();
       state = state.copyWith(isLoading: false);
+      _seManager.stopDrumRoll();
+      _seManager.playDenn();
     });
   }
 
@@ -74,6 +79,7 @@ class RandomSelectNotifier extends StateNotifier<ThemeState> {
 }
 
 final randomSelectorProvider =
-    StateNotifierProvider<RandomSelectNotifier, ThemeState>(
-      (ref) => RandomSelectNotifier(),
-    );
+    StateNotifierProvider<RandomSelectNotifier, ThemeState>((ref) {
+      final seManager = ref.read(seManagerProvider);
+      return RandomSelectNotifier(seManager);
+    });

@@ -3,14 +3,16 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_nana_project/pages/terms/widgets/button.dart';
 import 'package:flutter_app_nana_project/pages/terms/widgets/terms.dart';
+import 'package:flutter_app_nana_project/service/se_manager.dart';
 import 'package:flutter_app_nana_project/styles/colors.dart';
 import 'package:flutter_app_nana_project/widgets/button.dart';
 import 'package:flutter_app_nana_project/widgets/back_button.dart';
 import 'package:flutter_app_nana_project/widgets/logo.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
-class PageTerms extends StatelessWidget {
+class PageTerms extends ConsumerWidget {
   const PageTerms({super.key});
 
   push(BuildContext context) {
@@ -18,7 +20,8 @@ class PageTerms extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // ref.read(seManagerProvider).playGoriyou();
     return CupertinoPageScaffold(
       backgroundColor: MainColors.bgColor,
       child: Stack(
